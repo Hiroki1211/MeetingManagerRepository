@@ -5,13 +5,13 @@
         <title>Member</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="../css/table.css">
-        <link rel="stylesheet" href="../css/button.css">
+        <link rel="stylesheet" href="/css/table.css">
+        <link rel="stylesheet" href="/css/button.css">
     </head>
     <body>
         <div class = "menu">
             <button type="button">アカウント発行</button>
-            <button type="button">タグ管理</button>
+            <button type="button" onclick="location.href='./member/tag'">タグ管理</button>
             <button type="button">アカウント削除</button>
         </div>
         <table class="y-scroll simple-table">
