@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>Member</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="/css/table.css">
-        <link rel="stylesheet" href="/css/button.css">
-    </head>
-    <body>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Member') }}
+        </h2>
+    </x-slot>
+    
         <div class = "menu">
             <button type="button">アカウント発行</button>
             <button type="button" onclick="location.href='./member/tag'">タグ管理</button>
@@ -32,5 +28,5 @@
                 </tr>
             @endforeach
         </table>
-    </body>
-</html>
+
+</x-app-layout>

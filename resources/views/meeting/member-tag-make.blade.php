@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>Member</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    </head>
-    <body>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('タグ作成') }}
+        </h2>
+    </x-slot>
+
         <form action="/meeting/member/tag" method="POST">
             @csrf
             <div class = "tag_name">
@@ -28,5 +26,6 @@
             <br/>
             <a href = "/meeting/member/tag">戻る</a>
         </div>
-    </body>
-</html>
+
+</x-app-layout>
+

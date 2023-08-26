@@ -15,4 +15,7 @@ class TagController extends Controller
         return redirect('/meeting/member/tag');
     }
 
+    public function tag(Tag $tag){
+        return view('meeting/member-tag')->with(['tags' => $tag->get()]);
+    }
 }
