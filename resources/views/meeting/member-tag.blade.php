@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class = "menu">
-            <button type="button">タグ作成</button>
+            <button type="button" onClick="location.href='./tag/make'">タグ作成</button>
             <button type="button">タグ削除</button>
         </div>
         <table class="y-scroll simple-table">
@@ -33,5 +33,8 @@
                 </tr>
             @endforeach
         </table>
+        <dev class ="footer">
+            <a href = "/meeting/member">戻る</a>
+        </dev>
     </body>
 </html>
