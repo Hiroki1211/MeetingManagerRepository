@@ -21,6 +21,8 @@ Route::get('/', function () {
 });
 
 Route::get('/meeting/member', [UserController::class, 'member']);
+Route::get('/meeting/member/tag', [UserController::class, 'tag']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
