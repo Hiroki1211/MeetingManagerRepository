@@ -4,6 +4,5 @@
             {{ __('Home') }}
         </h2>
     </x-slot>
-        <h1> Meeting Manager</h1>
         <button type="button" onclick="location.href='./meeting/make'">新規作成</button>
 </x-app-layout>

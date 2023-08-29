@@ -10,9 +10,11 @@ class Tag extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'color'
     ];
 
     public $timestamps = false;
+
 }
