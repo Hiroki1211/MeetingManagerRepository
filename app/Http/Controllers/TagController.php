@@ -18,4 +18,19 @@ class TagController extends Controller
     public function tag(Tag $tag){
         return view('meeting/member-tag')->with(['tags' => $tag->get()]);
     }
+    
+    public function search(Request $request, Tag $tag){
+        $input = $request['tagID'];
+        $tags = $tag->whereIn('id', $input)->get();
+        return view("meeting/member-tag-delete")->with(['tags' => $tags]);
+    }
+    
+    public function delete(Request $request, Tag $tag){
+        $input = $request['tagID'];
+        $tags = $tag->whereIn('id', $input)->get();
+        foreach ($tags as $tag){
+            $tag->delete();
+        }
+        return redirect('/meeting/member/tag');
+    }
 }

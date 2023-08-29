@@ -33,8 +33,12 @@ Route::get('/meeting/member/tag', [TagController::class, 'tag']);
 Route::get('/meeting/member/tag/make', function () {
     return view('/meeting/member-tag-make');
 });
+Route::get('/meeting/member/tag/delete', [TagController::class, 'search']);
 
 Route::post('/meeting/member/tag', [TagController::class, 'make']);
+Route::post('/meeting/make', [EventController::class, 'make']);
+
+Route::delete('/meeting/member/tag', [TagController::class, 'delete']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
