@@ -7,7 +7,7 @@
 
         <div class = "menu">
             <button type="button" onClick="location.href='./tag/make'">タグ作成</button>
-            <button type="button" onClick="location.href='./tag.enchant'">タグ付与</button>
+            <button type="button" onClick="location.href='./tag/enchant'">タグ付与</button>
         </div>
         <form method = "GET" action = "?">
             @csrf
