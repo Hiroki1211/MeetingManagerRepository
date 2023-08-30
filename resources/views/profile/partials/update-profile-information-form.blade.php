@@ -17,10 +17,34 @@
         @csrf
         @method('patch')
 
+        <!--<div>-->
+        <!--    <x-input-label for="name" :value="__('Name')" />-->
+        <!--    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />-->
+        <!--    <x-input-error class="mt-2" :messages="$errors->get('name')" />-->
+        <!--</div>-->
+        
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-input-label for="name_last" :value="__('姓')" />
+            <x-text-input id="name_last" name="name_last" type="text" class="mt-1 block w-full" :value="old('name_last', $user->name_last)" required autofocus autocomplete="name_last" />
+            <x-input-error class="mt-2" :messages="$errors->get('name_last')" />
+        </div>
+        
+        <div>
+            <x-input-label for="name_first" :value="__('名')" />
+            <x-text-input id="name_first" name="name_first" type="text" class="mt-1 block w-full" :value="old('name_first', $user->name_first)" required autofocus autocomplete="name_first" />
+            <x-input-error class="mt-2" :messages="$errors->get('name_first')" />
+        </div>
+
+        <div>
+            <x-input-label for="name_last_read" :value="__('セイ')" />
+            <x-text-input id="name_last_read" name="name_last_read" type="text" class="mt-1 block w-full" :value="old('name_last_read', $user->name_last_read)" required autofocus autocomplete="name_last_read" />
+            <x-input-error class="mt-2" :messages="$errors->get('name_last_read')" />
+        </div>
+        
+        <div>
+            <x-input-label for="name_first_read" :value="__('メイ')" />
+            <x-text-input id="name_first_read" name="name_first_read" type="text" class="mt-1 block w-full" :value="old('name_first_read', $user->name_first_read)" required autofocus autocomplete="name_first_read" />
+            <x-input-error class="mt-2" :messages="$errors->get('name_first_read')" />
         </div>
 
         <div>
