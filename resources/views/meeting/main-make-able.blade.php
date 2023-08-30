@@ -5,7 +5,8 @@
         </h2>
     </x-slot>
     
-    <form>
+    <form action="/meeting/make/able" method = "POST">
+        @csrf
         <table>
             <tr>
                 <th></th>
@@ -28,31 +29,34 @@
             <?php
                 $time_start = new DateTime($event -> time_start);
                 $time_end = new DateTime($event -> time_end);
-                $frame = new DateTime($event -> frame );
-                $frame_print = $frame-> format('i');
-                $frame_in = '+$frame_print minute';
+                $frame = strval($event->frame);
                 while($time_end>=$time_start){
                     $time_print = $time_start->format('h-i');
-                    $time_start ->modify($frame);
             ?>
                     <tr>
                         <td>{{$time_print}}</td>
             <?php
+                        $day=new DateTime($event->day_start);
                         for($i = 0; $i < $cols; $i++){
+                            $day_print = $day->format('y-m-d')
             ?>
                             <td>
-                                <input type="checkbox">
+                                <input type="checkbox" checked>
+                                <input type="hidden" name="event[]" value="{{$day_print. "-" .$time_print}}">
                             </td>
             <?php
+                            $day->add(new DateInterval('P1D'));
                         }
             ?>
                     </tr>  
-            <?php        
+            <?php 
+                    $time_start ->modify("+$frame minute");
                 }
             ?>
             
             
         </table>
+        <button type="submit">メンバー選択</button>
     </form>
     
     

@@ -22,4 +22,8 @@ class Event extends Model
         'rest'
     ];
     
+    public function users(){
+        return $this -> belongsToMany(User::class);
+    }
+    
 }
