@@ -28,7 +28,6 @@ class UserController extends Controller
     public function make(Request $request, User $user){
         $input=$request['user'];
         $user->fill($input);
-        $user->name = "aa";
         $user->save();
         return redirect('/meeting/member');
     }

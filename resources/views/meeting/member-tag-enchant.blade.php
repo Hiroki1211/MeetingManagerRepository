@@ -21,7 +21,7 @@
                     <td>
                         <input type="checkbox">
                     </td>
-                    <td class="simple-td">{{ $user-> name_last}} {{ $user-> name_first}}</td>
+                    <td class="simple-td">{{ $user-> name_last}} {{ $user-> name_last}}</td>
                     <td class="simple-td">{{ $user-> name_last_read}} {{ $user-> name_first_read}}</td>
                     <td class="simple-td">3-1</td>
                     <td class="simple-td">{{ $user-> id }}</td>
