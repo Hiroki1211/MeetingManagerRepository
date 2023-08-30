@@ -13,4 +13,10 @@ class EventController extends Controller
         // $event->save();
         return view('/meeting/main-make-able')->with(['event' => $event]);
     }
+    
+    public function member(Request $request, Event $event){
+        $input = $request['event'];
+        
+        return redirect('/meeting/main/make/able/member');
+    }
 }

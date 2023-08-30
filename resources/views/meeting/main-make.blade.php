@@ -25,7 +25,17 @@
                 <label for="scales">土日祝を含む</label>
             </div>
             <div class ="frame">
-                <p>1コマ：<input type="time" step="600" name="event[frame]"></p>
+                <p>
+                    1コマ：
+                    <select name="event[frame]">
+                        <option value = 10>10</option>
+                        <option value = 20>20</option>
+                        <option value = 30>30</option>
+                        <option value = 60>60</option>
+                        <option value = 90>90</option>
+                    </select>
+                    分
+                </p>
             </div>
             <div class="time_start">
                 <p>開始時刻：<input type="time" step="600" name="event[time_start]"></p>

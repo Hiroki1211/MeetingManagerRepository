@@ -28,16 +28,25 @@ Route::get('/meeting', function(){
 Route::get('/meeting/make', function(){
     return view('/meeting/main-make');
 });
+Route::get('/meeting/main/make/able/member', [UserController::class, 'setMember']);
 Route::get('/meeting/member', [UserController::class, 'member'])->name('member');
+Route::get('/meeting/member/make', function(){
+    return view('/meeting/member-make');
+});
+Route::get('/meeting/member/delete', [UserController::class, 'pass']);
 Route::get('/meeting/member/tag', [TagController::class, 'tag']);
 Route::get('/meeting/member/tag/make', function () {
     return view('/meeting/member-tag-make');
 });
+Route::get('/meeting/member/tag/enchant', [UserController::class, 'enchant']);
 Route::get('/meeting/member/tag/delete', [TagController::class, 'search']);
 
 Route::post('/meeting/member/tag', [TagController::class, 'make']);
+Route::post('/meeting/member/make', [UserController::class, 'make']);
 Route::post('/meeting/make', [EventController::class, 'make']);
+Route::post('/meeting/make/able', [EventController::class, 'member']);
 
+Route::delete('/meeting/member/delete', [UserController::class, 'delete']);
 Route::delete('/meeting/member/tag', [TagController::class, 'delete']);
 
 Route::get('/dashboard', function () {
