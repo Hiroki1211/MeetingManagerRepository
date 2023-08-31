@@ -10,8 +10,7 @@
                 <p>タイトル：<input type="text" name="event[title]" /></p>
             </div>
             <div class="edit_limit"> 
-                <!--nullable-->
-                <p>入力期限：<input type="date" mame="event[edit_limit]"></p>
+                <p>入力期限：<input type="date" name="event[edit_limit]"></p>
             </div>
             <div class="day_start">
                 <p>開始日：<input type="date" name="event[day_start]"></p>
@@ -20,7 +19,6 @@
                 <p>終了日：<input type="date" name="event[day_end]"></p>
             </div>
             <div class="rest">
-                <!--nullable-->
                 <input type="checkbox" id="scales" name="event[rest]" value="true" />
                 <label for="scales">土日祝を含む</label>
             </div>

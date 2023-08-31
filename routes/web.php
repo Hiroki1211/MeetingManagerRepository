@@ -28,7 +28,7 @@ Route::get('/meeting', function(){
 Route::get('/meeting/make', function(){
     return view('/meeting/main-make');
 });
-Route::get('/meeting/main/make/able/member', [UserController::class, 'setMember']);
+
 Route::get('/meeting/member', [UserController::class, 'member'])->name('member');
 Route::get('/meeting/member/make', function(){
     return view('/meeting/member-make');
@@ -46,6 +46,7 @@ Route::post('/meeting/member/tag/enchant', [UserController::class, 'saveTag']);
 Route::post('/meeting/member/make', [UserController::class, 'make']);
 Route::post('/meeting/make', [EventController::class, 'make']);
 Route::post('/meeting/make/able', [EventController::class, 'member']);
+Route::post('/meeting/make/able/member', [EventController::class, 'saveEvent']);
 
 Route::delete('/meeting/member/delete', [UserController::class, 'delete']);
 Route::delete('/meeting/member/tag', [TagController::class, 'delete']);
