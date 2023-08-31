@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Tag;
 
 class UserController extends Controller
 {
@@ -19,10 +20,10 @@ class UserController extends Controller
         return view('meeting/main-make-able-member')->with(['users' => $user->get()]);
     }
     
-    public function enchant(Request $request, User $user){
-        // $input=$request['tagID'];
-        // $tags = $tag->whereIn('id', $input)->get();
-        return view('meeting/member-tag-enchant')->with(['users' => $user->get()]);
+    public function enchant(Request $request, User $user, Tag $tag){
+        $input=$request['tagID'];
+        $tags = $tag->whereIn('id', $input)->get();
+        return view('meeting/member-tag-enchant')->with(['users' => $user->get(), 'tags' => $tags]);
     }
     
     public function make(Request $request, User $user){
@@ -45,5 +46,16 @@ class UserController extends Controller
             $user->delete();
         }
         return redirect('/meeting/member');
+    }
+    
+    public function saveTag(Request $request, User $user, Tag $tag){
+        $input_tag = $request->tagID;
+        $input_user = $request['userID'];
+        $users = $user->whereIn('id', $input_user)->get();
+        foreach($users as $user){
+            
+            $user->tags()->attach($input_tag);
+        }
+        return redirect('/meeting/member/tag');
     }
 }

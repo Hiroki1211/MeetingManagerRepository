@@ -28,7 +28,11 @@
                         <td class="simple-td">{{ $user-> id }}</td>
                         <td class="simple-td">{{ $user-> name_last}} {{ $user-> name_first}}</td>
                         <td class="simple-td">{{ $user-> name_last_read}} {{ $user-> name_first_read}}</td>
-                        <td class="simple-td">3</td>
+                        <td class="simple-td">
+                            @foreach($user->tags as $tag)
+                                {{ $tag->name }}
+                            @endforeach
+                        </td>
                         <td class="simple-td">{{ $user-> email}}</td>
                     </tr>
                 @endforeach
