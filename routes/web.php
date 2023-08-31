@@ -42,6 +42,7 @@ Route::get('/meeting/member/tag/enchant', [UserController::class, 'enchant']);
 Route::get('/meeting/member/tag/delete', [TagController::class, 'search']);
 
 Route::post('/meeting/member/tag', [TagController::class, 'make']);
+Route::post('/meeting/member/tag/enchant', [UserController::class, 'saveTag']);
 Route::post('/meeting/member/make', [UserController::class, 'make']);
 Route::post('/meeting/make', [EventController::class, 'make']);
 Route::post('/meeting/make/able', [EventController::class, 'member']);
