@@ -53,8 +53,7 @@
                             $day_print = $day->format('y-m-d')
             ?>
                             <td>
-                                <input type="checkbox" checked>
-                                <input type="hidden" name="start[]" value="{{$day_print. "-" .$time_print}}">
+                                <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}">
                             </td>
             <?php
                             $day->add(new DateInterval('P1D'));
