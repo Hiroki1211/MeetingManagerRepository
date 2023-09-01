@@ -4,5 +4,14 @@
             {{ __('Home') }}
         </h2>
     </x-slot>
-        <button type="button" onclick="location.href='./meeting/make'">新規作成</button>
+    
+        <div class="menu">
+            <button type="button" onclick="location.href='./meeting/make'">新規作成</button>
+            <button type="button" onclick="location.href='./meeting/delete'">削除</button>
+        </div>
+        
+        @foreach ($events as $event)
+            <h2>{{ $event->title }}</h2>
+            <p>入力期限：{{ $event->edit_limit }}</p>
+        @endforeach
 </x-app-layout>

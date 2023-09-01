@@ -22,12 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/meeting', function(){
-    return view('/meeting/main');
-})->name('main');
+Route::get('/meeting', [EventController::class, 'main'])->name('main');
 Route::get('/meeting/make', function(){
     return view('/meeting/main-make');
 });
+Route::get('/meeting/delete', [EventController::class, 'delete']);
 
 Route::get('/meeting/member', [UserController::class, 'member'])->name('member');
 Route::get('/meeting/member/make', function(){
@@ -41,6 +40,8 @@ Route::get('/meeting/member/tag/make', function () {
 Route::get('/meeting/member/tag/enchant', [UserController::class, 'enchant']);
 Route::get('/meeting/member/tag/delete', [TagController::class, 'search']);
 
+Route::post('/meeting/delete', [EventController::class, 'checkDelete']);
+Route::post('/meeting/delete/check', [EventController::class, 'completeDelete']);
 Route::post('/meeting/member/tag', [TagController::class, 'make']);
 Route::post('/meeting/member/tag/enchant', [UserController::class, 'saveTag']);
 Route::post('/meeting/member/make', [UserController::class, 'make']);
