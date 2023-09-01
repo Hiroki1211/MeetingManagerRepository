@@ -32,10 +32,8 @@ class EventController extends Controller
 
         $event->fill($input_event);
         $event->save();
-        foreach ($input_userID as $userID){
-            foreach ($input_start as $value){
-                $event->users()->attach($userID, ['start' => $value, 'register' => null]);
-            }
+        foreach ($input_start as $value){
+            $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
         }
         $event->users()->attach($input_userID, ['start' => null, 'register' => $input_authID]);
         return redirect('/meeting');
