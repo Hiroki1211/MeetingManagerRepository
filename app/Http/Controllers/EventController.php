@@ -65,4 +65,48 @@ class EventController extends Controller
         
         return redirect('/meeting');
     }
+    
+    public function edit(Event $event){
+        return view('/meeting/main-edit')->with(['event' => $event]);
+    }
+    
+    public function updateAble(Request $request, Event $event){
+        $input = $request['event'];
+        $authID = Auth::user()->id;
+        
+        $registered = $event -> checked(Auth::user()->id);
+        $event -> fill($input);
+
+        return view('/meeting/main-edit-able')->with(['event'=>$event, 'authID' => $authID, 'registered'=> $registered]);
+    }
+    
+    public function updateMember(Request $request, Event $event, User $user){
+        $input_start = $request['start'];
+        $input_event = $request['event'];
+        $event -> fill($input_event);
+        $authID = $request['authID'];
+        
+        $registeredUser = $event->users()->where('register', '<>', null)->get();
+
+        return view('/meeting/main-edit-able-member')->with(['start' => $input_start, 'authID' => $authID, 'event'=>$event, 'users' => $user->get(), 'registered' => $registeredUser]);  
+    }
+    
+    public function update(Request $request, Event $event , User $user){
+        $input_start = $request['start'];
+        $input_authID = $request['authID'];
+        $input_event = $request['event'];
+        $input_userID = $request['userID'];
+
+        $event->fill($input_event);
+        $event->update();
+  
+        $event->users()->detach();
+        foreach ($input_start as $value){
+            $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
+        }
+        $event->users()->attach($input_userID, ['start' => null, 'register' => $input_authID]);
+        
+        return redirect('/meeting');
+    }
+    
 }

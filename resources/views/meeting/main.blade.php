@@ -11,7 +11,9 @@
         </div>
         
         @foreach ($events as $event)
-            <h2>{{ $event->title }}</h2>
+            <h2>
+                <a href="/meeting/{{$event->id}}/edit">{{ $event->title }}</a>
+            </h2>
             <p>入力期限：{{ $event->edit_limit }}</p>
         @endforeach
 </x-app-layout>

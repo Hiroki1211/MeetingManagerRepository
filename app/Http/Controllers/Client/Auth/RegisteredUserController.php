@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controller\Auth;
+namespace App\Http\Controllers\Client\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Controllers\Client\Controller;
+use App\Models\Client;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('client.auth.register');
     }
 
     /**
@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Client::class],
             'name_last' => ['required', 'string', 'max:255'],
             'name_first' => ['required', 'string', 'max:255'],
             'name_last_read' => ['required', 'string', 'max:255'],
@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        $user = Client::create([
             'email' => $request->email,
             'name_last' => $request->name_last,
             'name_first' => $request->name_first,
@@ -50,8 +50,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        Auth::guard('client')->login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::CLIENT_HOME);
     }
 }
