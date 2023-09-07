@@ -23,7 +23,10 @@ class Event extends Model
     ];
     
     public function users(){
-        return $this -> belongsToMany(User::class);
+        return $this -> belongsToMany(User::class)->withPivot('start');
     }
     
+    public function checked(int $user_id){
+        return $this -> users() -> where('user_id', '=', $user_id)->get();
+    }
 }

@@ -24,5 +24,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \URL::forceScheme('https'); //追加
+        if (request()->is('client/*')) {
+            config(['session.cookie' => config('session.cookie_client')]);
+        }
     }
 }

@@ -2,22 +2,17 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database_Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\ClientResetPassword as ResetPasswordNotification;
 
-class User extends Authenticatable
+class Client extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    use HasFactory;
+    
     protected $fillable = [
         'email',
         'password',
@@ -46,12 +41,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function events(){
-        return $this->belongsToMany(Event::class)->withPivot('start');
-    }
+    // public function events(){
+    //     return $this->belongsToMany(Event::class);
+    // }
     
-    public function tags(){
-        return $this->belongsToMany(Tag::class);
-    }
+    // public function tags(){
+    //     return $this->belongsToMany(Tag::class);
+    // }
     
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
 }
