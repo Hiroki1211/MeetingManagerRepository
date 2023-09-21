@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController as ProfileOfAdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,6 +35,7 @@ Route::prefix('client')->name('client.')->group(function(){
     require __DIR__.'/client.php';
 });
 
+
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
@@ -47,6 +49,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     require __DIR__.'/admin.php';
 });
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -65,6 +68,11 @@ Route::get('/meeting/member/make', function(){
     return view('/meeting/member-make');
 });
 Route::get('/meeting/member/delete', [UserController::class, 'pass']);
+Route::get('/meeting/client/member', [ClientController::class, 'member'])->name('client');
+Route::get('/meeting/client/member/make', function(){
+    return view('/meeting/client-member-make');
+});
+Route::get('/meeting/client/member/delete', [ClientController::class, 'pass']);
 Route::get('/meeting/member/tag', [TagController::class, 'tag']);
 Route::get('/meeting/member/tag/make', function () {
     return view('/meeting/member-tag-make');
@@ -77,6 +85,7 @@ Route::post('/meeting/delete/check', [EventController::class, 'completeDelete'])
 Route::post('/meeting/member/tag', [TagController::class, 'make']);
 Route::post('/meeting/member/tag/enchant', [UserController::class, 'saveTag']);
 Route::post('/meeting/member/make', [UserController::class, 'make']);
+Route::post('/meeting/client/member/make', [ClientController::class, 'make']);
 Route::post('/meeting/make', [EventController::class, 'make']);
 Route::post('/meeting/make/able', [EventController::class, 'member']);
 Route::post('/meeting/make/able/member', [EventController::class, 'saveEvent']);
@@ -87,6 +96,7 @@ Route::put('/meeting/{event}/edit/able/member', [EventCOntroller::class, 'update
 
 Route::delete('/meeting/member/delete', [UserController::class, 'delete']);
 Route::delete('/meeting/member/tag', [TagController::class, 'delete']);
+Route::delete('/meeting/client/member/delete', [ClientController::class, 'delete']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

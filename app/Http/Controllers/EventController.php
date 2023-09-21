@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Event;
 use App\Models\User;
+use App\Models\Client;
 
 class EventController extends Controller
 {
@@ -42,12 +43,12 @@ class EventController extends Controller
         return redirect('/meeting');
     }
     
-    public function member(Request $request, Event $event, User $user){
+    public function member(Request $request, Event $event, Client $client){
         $input_start = $request['start'];
         $input_authID = $request['authID'];
         $input_event = $request['event'];
         
-        return view('/meeting/main-make-able-member')->with(['start' => $input_start, 'authID' => $input_authID, 'event'=>$input_event, 'users' => $user->get()]);
+        return view('/meeting/main-make-able-member')->with(['start' => $input_start, 'authID' => $input_authID, 'event'=>$input_event, 'users' => $client->get()]);
     }
     
     public function saveEvent(Request $request, Event $event , User $user){
