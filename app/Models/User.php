@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database_Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +23,8 @@ class User extends Authenticatable
         'name_last',
         'name_first',
         'name_last_read',
-        'name_first_read'
+        'name_first_read',
+        'group_id'
     ];
 
     /**
@@ -45,6 +45,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function groupID(int $group_id){
+        $this -> where('group_id', '=', $group_id)->get();
+        return $this->group_id;
+    }
     
     public function events(){
         return $this->belongsToMany(Event::class)->withPivot('start');

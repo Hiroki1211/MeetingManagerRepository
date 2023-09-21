@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileController as ProfileOfClientController;
+use App\Http\Controllers\ProfileController as ProfileOfAdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\EventController;
@@ -30,7 +31,21 @@ Route::prefix('client')->name('client.')->group(function(){
         Route::delete('/profile', [ProfileOfClientController::class, 'destroy'])->name('profile.destroy');
     });
 
-    // require __DIR__.'/client.php';
+    require __DIR__.'/client.php';
+});
+
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->middleware(['auth:admin', 'verified'])->name('dashboard');
+
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/profile', [ProfileOfAdminController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileOfAdminController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileOfAdminController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    require __DIR__.'/admin.php';
 });
 
 Route::get('/', function () {
@@ -42,6 +57,7 @@ Route::get('/meeting/make', function(){
     return view('/meeting/main-make');
 });
 Route::get('/meeting/{event}/edit', [EventController::class, 'edit']);
+Route::get('/meeting/{event}/decide', [EventController::class, 'decide']);
 Route::get('/meeting/delete', [EventController::class, 'delete']);
 
 Route::get('/meeting/member', [UserController::class, 'member'])->name('member');

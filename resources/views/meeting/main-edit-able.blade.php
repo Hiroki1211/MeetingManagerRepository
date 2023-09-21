@@ -27,7 +27,9 @@
                 <?php
                     $start_array = [];
                     
+                    
                     foreach ($registered as $each){
+
                         $start_array[] = new DateTime($each->pivot->start);
                     }
                     

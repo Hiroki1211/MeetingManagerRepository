@@ -2,6 +2,12 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <div class="mt-4">
+           <x-input-label for="group_id" :value="__('グループID')" />
+           <x-text-input id="group_id" class="block mt-1 w-full" type="text" name="group_id" :value="old('group_id')" required autocomplete="group_id" />
+           <x-input-error :messages="$errors->get('group_id')" class="mt-2" />
+        </div>
+
         <!-- Name -->
         <div>
             <x-input-label for="name_last" :value="__('姓')" />

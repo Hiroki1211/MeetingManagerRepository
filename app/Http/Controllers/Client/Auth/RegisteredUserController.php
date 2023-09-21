@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client\Auth;
 
-use App\Http\Controllers\Client\Controller;
+use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -31,6 +31,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'group_id' => ['required', 'integer'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Client::class],
             'name_last' => ['required', 'string', 'max:255'],
             'name_first' => ['required', 'string', 'max:255'],
@@ -40,6 +41,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = Client::create([
+            'group_id' => $request->group_id,
             'email' => $request->email,
             'name_last' => $request->name_last,
             'name_first' => $request->name_first,

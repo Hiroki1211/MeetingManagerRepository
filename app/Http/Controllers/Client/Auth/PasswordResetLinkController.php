@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Client\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;

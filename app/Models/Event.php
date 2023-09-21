@@ -29,4 +29,28 @@ class Event extends Model
     public function checked(int $user_id){
         return $this -> users() -> where('user_id', '=', $user_id)->get();
     }
+    
+    public function host(int $authID){
+        return $this -> users() -> where([
+                ['start', '<>', NULL],
+                ['user_id', '=', $authID],
+            ])
+            ->get();
+    }
+    
+    public function client(int $authID){
+        return $this -> users() -> where([
+                ['start', '<>', NULL],
+                ['user_id', '<>', $authID],
+            ])
+            ->get();
+    }
+    
+    public function registered(int $authID){
+        return $this -> users() -> where([
+                ['start', '=', NULL],
+                ['register', '=', $authID],
+            ])
+            ->get();
+    }
 }
