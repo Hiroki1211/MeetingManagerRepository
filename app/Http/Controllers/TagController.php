@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tag;
+use App\Models\User;
 
 class TagController extends Controller
 {
-    public function make(Request $request, Tag $tag){
+    public function make(Request $request, Tag $tag, User $user){
         $input = $request['tag'];
         $tag->name = $input["name"];
         $tag->color = $input["color"];
+        $authID = Auth::user()->id;
+        $group_id = $user->groupID($authID);
+        $tag -> group_id = $group_id;
         $tag->save();
         return redirect('/meeting/member/tag');
     }

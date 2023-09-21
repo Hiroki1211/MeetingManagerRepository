@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -31,6 +31,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'group_id' => ['required', 'integer'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'name_last' => ['required', 'string', 'max:255'],
             'name_first' => ['required', 'string', 'max:255'],
@@ -40,6 +41,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
+            'group_id' => $request->group_id,
             'email' => $request->email,
             'name_last' => $request->name_last,
             'name_first' => $request->name_first,

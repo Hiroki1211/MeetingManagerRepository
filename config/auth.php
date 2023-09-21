@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'clients',
         ],
+        'admin' => [                // 追加
+            'driver' => 'session',  // 追加
+            'provider' => 'admins', // 追加
+        ], 
     ],
 
     /*
@@ -71,7 +75,11 @@ return [
         'clients' => [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
-        ]
+        ],
+        'admins' => [                           // 追加
+            'driver' => 'eloquent',             // 追加
+            'model' => App\Models\Admin::class, // 追加
+        ], 
 
         // 'users' => [
         //     'driver' => 'database',
@@ -106,7 +114,13 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,   
-        ]
+        ],
+        'admins' => [                     // 追加
+            'provider' => 'admins',       // 追加
+            'table' => 'password_resets', // 追加
+            'expire' => 60,               // 追加
+            'throttle' => 60,             // 追加
+        ],
     ],
 
     /*

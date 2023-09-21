@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Tag;
 
 class UserController extends Controller
 {
     public function member(User $user){
-        return view('meeting/member')->with(['users' => $user->get()]);
+        $authID = Auth::user()->id;
+        $group_id = $user->groupID($authID);
+        
+        return view('meeting/member')->with(['users' => $user->where('group_id', '=', $group_id)->get()]);
     }
     
     public function tag(User $user){
@@ -28,7 +32,10 @@ class UserController extends Controller
     
     public function make(Request $request, User $user){
         $input=$request['user'];
+        $authID = Auth::user()->id;
+        $group_id = $user->groupID($authID);
         $user->fill($input);
+        $user->group_id = $group_id;
         $user->save();
         return redirect('/meeting/member');
     }

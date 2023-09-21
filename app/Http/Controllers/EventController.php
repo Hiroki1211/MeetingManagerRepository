@@ -57,6 +57,8 @@ class EventController extends Controller
         $input_userID = $request['userID'];
 
         $event->fill($input_event);
+        $user->where('id', '=', $input_authID)->get();
+        $event->rest = $user->group_id;
         $event->save();
         foreach ($input_start as $value){
             $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
@@ -107,6 +109,16 @@ class EventController extends Controller
         $event->users()->attach($input_userID, ['start' => null, 'register' => $input_authID]);
         
         return redirect('/meeting');
+    }
+    
+    public function decide(Event $event){
+        
+        $authID = Auth::user()->id;
+        $hosts = $event->host($authID);
+        $clients = $event->client($authID);
+        $register = $event->registered($authID);
+        
+        return view('/meeting/main-decide')->with(['event' => $event, 'authID' => $authID, 'hosts' => $hosts, 'clients' => $clients, 'register' => $register]);
     }
     
 }

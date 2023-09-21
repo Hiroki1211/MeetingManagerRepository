@@ -12,7 +12,17 @@
         
         @foreach ($events as $event)
             <h2>
-                <a href="/meeting/{{$event->id}}/edit">{{ $event->title }}</a>
+                <?php
+                    if( $event->edit_limit < now()){
+                ?>
+                        <a href="/meeting/{{$event->id}}/decide">{{ $event->title }}</a>
+                <?php
+                    }else{
+                ?>
+                        <a href="/meeting/{{$event->id}}/edit">{{ $event->title }}</a>
+                <?php        
+                    }
+                ?>        
             </h2>
             <p>入力期限：{{ $event->edit_limit }}</p>
         @endforeach

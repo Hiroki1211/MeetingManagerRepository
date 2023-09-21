@@ -9,11 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\ClientResetPassword as ResetPasswordNotification;
 
-class Client extends Model
+class Client extends Authenticatable
 {
     use HasFactory;
     
     protected $fillable = [
+        'group_id',
         'email',
         'password',
         'name_last',
