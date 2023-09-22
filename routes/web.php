@@ -79,6 +79,12 @@ Route::get('/meeting/member/tag/make', function () {
 });
 Route::get('/meeting/member/tag/enchant', [UserController::class, 'enchant']);
 Route::get('/meeting/member/tag/delete', [TagController::class, 'search']);
+Route::get('/meeting/client/member/tag', [TagController::class, 'clientTag']);
+Route::get('/meeting/client/member/tag/make', function(){
+    return view('/meeting/client-member-tag-make');
+});
+Route::get('/meeting/client/member/tag/enchant', [ClientController::class, 'enchant']);
+Route::get('/meeting/client/member/tag/delete', [TagController::class, 'clientSearch']);
 
 Route::post('/meeting/delete', [EventController::class, 'checkDelete']);
 Route::post('/meeting/delete/check', [EventController::class, 'completeDelete']);
@@ -86,6 +92,8 @@ Route::post('/meeting/member/tag', [TagController::class, 'make']);
 Route::post('/meeting/member/tag/enchant', [UserController::class, 'saveTag']);
 Route::post('/meeting/member/make', [UserController::class, 'make']);
 Route::post('/meeting/client/member/make', [ClientController::class, 'make']);
+Route::post('/meeting/client/member/tag', [TagController::class, 'clientMake']);
+Route::post('/meeting/client/member/tag/enchant', [ClientController::class, 'saveTag']);
 Route::post('/meeting/make', [EventController::class, 'make']);
 Route::post('/meeting/make/able', [EventController::class, 'member']);
 Route::post('/meeting/make/able/member', [EventController::class, 'saveEvent']);
@@ -97,6 +105,7 @@ Route::put('/meeting/{event}/edit/able/member', [EventCOntroller::class, 'update
 Route::delete('/meeting/member/delete', [UserController::class, 'delete']);
 Route::delete('/meeting/member/tag', [TagController::class, 'delete']);
 Route::delete('/meeting/client/member/delete', [ClientController::class, 'delete']);
+Route::delete('/meeting/client/member/tag', [TagController::class, 'clientDelete']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

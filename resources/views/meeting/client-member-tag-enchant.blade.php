@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Member Tag Enchant') }}
+            {{ __('Client Tag Enchant') }}
         </h2>
     </x-slot>
 
-    <form action="/meeting/member/tag/enchant" method="POST">
+    <form action="/meeting/client/member/tag/enchant" method="POST">
         @csrf
         @foreach ($tags as $tag)
             <p>{{$tag->name}}</p>
@@ -20,19 +20,19 @@
                 <th class="simple-th">ID</th>
                 <th class="simple-th">e-mail</th>
             </tr>
-            @foreach ($users as $user)
+            @foreach ($clients as $client)
                 <tr>
                     <td>
-                        <input type="checkbox" name="userID[]" value="{{$user->id}}">
+                        <input type="checkbox" name="clientID[]" value="{{$client->id}}">
                     </td>
-                    <td class="simple-td">{{ $user-> name_last}} {{ $user-> name_first}}</td>
-                    <td class="simple-td">{{ $user-> name_last_read}} {{ $user-> name_first_read}}</td>
+                    <td class="simple-td">{{ $client-> name_last}} {{ $client-> name_first}}</td>
+                    <td class="simple-td">{{ $client-> name_last_read}} {{ $client-> name_first_read}}</td>
                     <td class="simple-td">
-                        @foreach($user->tags as $tag)
+                        @foreach($client->tags as $tag)
                             {{ $tag->name }}
                         @endforeach</td>
-                    <td class="simple-td">{{ $user-> id }}</td>
-                    <td class="simple-td">{{ $user-> email}}</td>
+                    <td class="simple-td">{{ $client-> id }}</td>
+                    <td class="simple-td">{{ $client-> email}}</td>
                 </tr>
             @endforeach
         </table>

@@ -6,8 +6,8 @@
     </x-slot>
     
         <div class = "menu">
-            <button type="button" onclick="location.href='./meeting/client/member/make'">アカウント発行</button>
-            <button type="button" onclick="location.href='./meeting/client/member/tag'">タグ管理</button>
+            <button type="button" onclick="location.href='member/make'">アカウント発行</button>
+            <button type="button" onclick="location.href='./member/tag'">タグ管理</button>
         </div>
         <form action="/meeting/client/member/delete" method="GET">
             @csrf
@@ -33,7 +33,9 @@
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $client-> name_last}} {{ $client-> name_first}}</td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $client-> name_last_read}} {{ $client-> name_first_read}}</td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-
+                                    @foreach($client->tags as $tag)
+                                        {{ $tag->name }}
+                                    @endforeach
                                 </td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $client-> email}}</td>
                             </tr>

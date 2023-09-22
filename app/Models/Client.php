@@ -54,4 +54,8 @@ class Client extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+    
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }    
 }
