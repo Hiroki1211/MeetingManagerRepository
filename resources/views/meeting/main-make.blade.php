@@ -50,7 +50,7 @@
                 <p>コメント：<textarea name="event[comment]" ></textarea></p>
             </div>
             
-            <button type="submit">イベント作成</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit">イベント作成</button>
 
         </form>
 </x-app-layout>

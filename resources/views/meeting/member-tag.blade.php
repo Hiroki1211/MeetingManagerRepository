@@ -6,7 +6,7 @@
     </x-slot>
 
         <div class = "menu">
-            <button type="button" onClick="location.href='./tag/make'">タグ作成</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onClick="location.href='./tag/make'">タグ作成</button>
         </div>
         <form method = "GET" action = "?">
             @csrf
@@ -29,8 +29,8 @@
                 @endforeach
             </table>
             <div class = "menu">
-                <button type = "submit" value = "enchant" formaction = "/meeting/member/tag/enchant">タグ付与</button>
-                <button type = "submit" value = "delete" formaction = "/meeting/member/tag/delete">タグ削除</button>
+                <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type = "submit" value = "enchant" formaction = "/meeting/member/tag/enchant">タグ付与</button>
+                <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type = "submit" value = "delete" formaction = "/meeting/member/tag/delete">タグ削除</button>
             </div>
         </form>
         

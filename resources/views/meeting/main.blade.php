@@ -6,20 +6,22 @@
     </x-slot>
     
         <div class="menu">
-            <button type="button" onclick="location.href='./meeting/make'">新規作成</button>
-            <button type="button" onclick="location.href='./meeting/delete'">削除</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./meeting/make'">新規作成</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./meeting/delete'">削除</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./meeting/manual'">手入力</button>
         </div>
         
         @foreach ($events as $event)
+            <br/>
             <h2>
                 <?php
                     if( $event->edit_limit < now()){
                 ?>
-                        <a href="/meeting/{{$event->id}}/decide">{{ $event->title }}</a>
+                        <a href="/meeting/{{$event->id}}/decide" class="bg-red-100 text-red-800 text-1xl font-medium mr-2 px-4 py-1 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">{{ $event->title }}</a>
                 <?php
                     }else{
                 ?>
-                        <a href="/meeting/{{$event->id}}/edit">{{ $event->title }}</a>
+                        <a href="/meeting/{{$event->id}}/edit" class="bg-green-100 text-green-800 text-1xl font-medium mr-2 px-4 py-1 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{{ $event->title }}</a>
                 <?php        
                     }
                 ?>        

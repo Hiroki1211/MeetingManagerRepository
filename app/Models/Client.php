@@ -11,7 +11,7 @@ use App\Notifications\ClientResetPassword as ResetPasswordNotification;
 
 class Client extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     
     protected $fillable = [
         'group_id',
@@ -57,5 +57,9 @@ class Client extends Authenticatable
     
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    } 
+    
+    public function events(){
+        return $this->belongsToMany(Event::class)->withPivot('start');
     }    
 }

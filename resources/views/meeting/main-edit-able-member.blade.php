@@ -47,14 +47,14 @@
                     <th class="simple-th">ID</th>
                     <th class="simple-th">e-mail</th>
                 </tr>
-                @foreach ($users as $user)
+                @foreach ($clients as $client)
                     <tr>
         <?php
                             
-                            if($user->id == $registeredID[$i]){
+                            if($client->id == $registeredID[$i]){
         ?>
                             <td>
-                                <input  type="checkbox" name="userID[]" value="{{ $user->id }}" checked>
+                                <input  type="checkbox" name="clientID[]" value="{{ $client->id }}" checked>
                             </td>
         <?php
                                 if($i != count($registeredID)-1){
@@ -63,24 +63,24 @@
                             }else{
         ?>
                             <td>
-                                <input  type="checkbox" name="userID[]" value="{{ $user->id }}">
+                                <input  type="checkbox" name="clientID[]" value="{{ $client->id }}">
                             </td>
         <?php
                             }
         ?>
-                        <td class="simple-td">{{ $user-> name_last}} {{ $user-> name_first}}</td>
-                        <td class="simple-td">{{ $user-> name_last_read}} {{ $user-> name_first_read}}</td>
+                        <td class="simple-td">{{ $client-> name_last}} {{ $client-> name_first}}</td>
+                        <td class="simple-td">{{ $client-> name_last_read}} {{ $client-> name_first_read}}</td>
                         <td class="simple-td">
-                            @foreach($user->tags as $tag)
+                            @foreach($client->tags as $tag)
                                 {{ $tag->name }}
                             @endforeach</td>
-                        <td class="simple-td">{{ $user-> id }}</td>
-                        <td class="simple-td">{{ $user-> email}}</td>
+                        <td class="simple-td">{{ $client-> id }}</td>
+                        <td class="simple-td">{{ $client-> email}}</td>
                     </tr>
                 @endforeach
         </table>
 
-        <button type="submit">作成</button>
+        <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit">作成</button>
     </form>
 
 
