@@ -48,14 +48,14 @@ class EventController extends Controller
         $input_authID = $request['authID'];
         $input_event = $request['event'];
         
-        return view('/meeting/main-make-able-member')->with(['start' => $input_start, 'authID' => $input_authID, 'event'=>$input_event, 'users' => $client->get()]);
+        return view('/meeting/main-make-able-member')->with(['start' => $input_start, 'authID' => $input_authID, 'event'=>$input_event, 'clients' => $client->get()]);
     }
     
-    public function saveEvent(Request $request, Event $event , User $user){
+    public function saveEvent(Request $request, Event $event , User $user, Client $client){
         $input_start = $request['start'];
         $input_authID = $request['authID'];
         $input_event = $request['event'];
-        $input_userID = $request['userID'];
+        $input_clientID = $request['clientID'];
 
         $event->fill($input_event);
         $user->where('id', '=', $input_authID)->get();
@@ -64,7 +64,7 @@ class EventController extends Controller
         foreach ($input_start as $value){
             $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
         }
-        $event->users()->attach($input_userID, ['start' => null, 'register' => $input_authID]);
+        $event->clients()->attach($input_clientID, ['start' => null, 'register' => $input_authID]);
         
         return redirect('/meeting');
     }
@@ -83,31 +83,32 @@ class EventController extends Controller
         return view('/meeting/main-edit-able')->with(['event'=>$event, 'authID' => $authID, 'registered'=> $registered]);
     }
     
-    public function updateMember(Request $request, Event $event, User $user){
+    public function updateMember(Request $request, Event $event, Client $client){
         $input_start = $request['start'];
         $input_event = $request['event'];
         $event -> fill($input_event);
         $authID = $request['authID'];
         
-        $registeredUser = $event->users()->where('register', '<>', null)->get();
+        $registeredUser = $event->clients()->where('register', '<>', null)->get();
 
-        return view('/meeting/main-edit-able-member')->with(['start' => $input_start, 'authID' => $authID, 'event'=>$event, 'users' => $user->get(), 'registered' => $registeredUser]);  
+        return view('/meeting/main-edit-able-member')->with(['start' => $input_start, 'authID' => $authID, 'event'=>$event, 'clients' => $client->get(), 'registered' => $registeredUser]);  
     }
     
-    public function update(Request $request, Event $event , User $user){
+    public function update(Request $request, Event $event , User $user, Client $client){
         $input_start = $request['start'];
         $input_authID = $request['authID'];
         $input_event = $request['event'];
-        $input_userID = $request['userID'];
+        $input_clientID = $request['clientID'];
 
         $event->fill($input_event);
         $event->update();
   
         $event->users()->detach();
+        $event->clients()->detach();
         foreach ($input_start as $value){
             $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
         }
-        $event->users()->attach($input_userID, ['start' => null, 'register' => $input_authID]);
+        $event->clients()->attach($input_clientID, ['start' => null, 'register' => $input_authID]);
         
         return redirect('/meeting');
     }

@@ -20,7 +20,7 @@
                 </select>
             </div>
             <br/>
-            <button type="submit" value="make">完了！</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit" value="make">完了！</button>
         </form>
         <div class = "footer">
             <br/>

@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('client')->name('client.')->group(function(){
     Route::get('/dashboard', function () {
+        dd("aa");
         return view('client.dashboard');
     })->middleware(['auth:client', 'verified'])->name('dashboard');
 

@@ -6,8 +6,8 @@
     </x-slot>
     
         <div class = "menu">
-            <button type="button" onclick="location.href='member/make'">アカウント発行</button>
-            <button type="button" onclick="location.href='./member/tag'">タグ管理</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='member/make'">アカウント発行</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./member/tag'">タグ管理</button>
         </div>
         <form action="/meeting/client/member/delete" method="GET">
             @csrf
@@ -34,7 +34,27 @@
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $client-> name_last_read}} {{ $client-> name_first_read}}</td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     @foreach($client->tags as $tag)
-                                        {{ $tag->name }}
+                                        <?php
+                                            if($tag->color == "red"){
+                                        ?>
+                                            <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
+                                                {{ $tag->name }}
+                                            </span>
+                                        <?php
+                                            }else if($tag->color == "green"){
+                                        ?>
+                                            <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">
+                                                {{ $tag->name }}
+                                            </span>
+                                        <?php
+                                            }else if($tag->color == "blue"){
+                                        ?>
+                                            <span class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                                                {{ $tag->name }}
+                                            </span>
+                                        <?php
+                                            }
+                                        ?>
                                     @endforeach
                                 </td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $client-> email}}</td>
@@ -44,7 +64,7 @@
                 </table>
             </div>
 
-            <button type="submit">アカウント削除</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit">アカウント削除</button>
         </form>
 
 </x-app-layout>
