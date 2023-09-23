@@ -8,7 +8,6 @@
         <div class="menu">
             <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./meeting/make'">新規作成</button>
             <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./meeting/delete'">削除</button>
-            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./meeting/manual'">手入力</button>
         </div>
         
         @foreach ($events as $event)
@@ -27,5 +26,6 @@
                 ?>        
             </h2>
             <p>入力期限：{{ $event->edit_limit }}</p>
+            <a href="/meeting/{{$event->id}}/manual" class="bg-blue-100 text-blue-800 text-1xl font-medium mr-2 px-4 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">手入力</a>
         @endforeach
 </x-app-layout>

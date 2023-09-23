@@ -123,4 +123,30 @@ class EventController extends Controller
         return view('/meeting/main-decide')->with(['event' => $event, 'authID' => $authID, 'hosts' => $hosts, 'clients' => $clients, 'register' => $register]);
     }
     
+    public function manualClient(Event $event, Client $client){
+        $authID = Auth::user()->id;
+        $register = $event->registered($authID);
+        
+        return view('/meeting/main-manual')->with(['event' => $event, 'register' => $register]);
+    }
+    
+    public function manualAble(Event $event, Client $client, Request $request){
+        $authID = Auth::user()->id;
+        $hosts = $event->host($authID);
+        $input = $request['clientID'];
+        $client = $client -> where('id', '=', $input) -> first();
+        
+        return view('/meeting/main-manual-able')->with(['event' => $event, 'hosts' => $hosts, 'client' => $client]);
+    }
+    
+    public function manualSave(Request $request, Event $event){
+        $input_clientID = $request['clientID'];
+        $input_start = $request['start'];
+        
+        foreach ($input_start as $value){
+            $event->clients()->attach($input_clientID, ['start' => $value, 'register' => null]);
+        }
+        
+        return redirect('/meeting');
+    }
 }

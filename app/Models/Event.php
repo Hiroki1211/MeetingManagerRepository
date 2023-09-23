@@ -43,7 +43,7 @@ class Event extends Model
     }
     
     public function client(int $authID){
-        return $this -> users() -> where([
+        return $this -> clients() -> where([
                 ['start', '<>', NULL],
                 ['user_id', '<>', $authID],
             ])
@@ -51,7 +51,7 @@ class Event extends Model
     }
     
     public function registered(int $authID){
-        return $this -> users() -> where([
+        return $this -> clients() -> where([
                 ['start', '=', NULL],
                 ['register', '=', $authID],
             ])
