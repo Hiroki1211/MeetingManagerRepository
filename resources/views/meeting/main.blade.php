@@ -12,20 +12,10 @@
         
         @foreach ($events as $event)
             <br/>
-            <h2>
-                <?php
-                    if( $event->edit_limit < now()){
-                ?>
-                        <a href="/meeting/{{$event->id}}/decide" class="bg-red-100 text-red-800 text-1xl font-medium mr-2 px-4 py-1 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">{{ $event->title }}</a>
-                <?php
-                    }else{
-                ?>
-                        <a href="/meeting/{{$event->id}}/edit" class="bg-green-100 text-green-800 text-1xl font-medium mr-2 px-4 py-1 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{{ $event->title }}</a>
-                <?php        
-                    }
-                ?>        
-            </h2>
+            <h2 class="font-bold text-lg">{{$event->title}}</h2>
             <p>入力期限：{{ $event->edit_limit }}</p>
+            <a href="/meeting/{{$event->id}}/edit" class="bg-red-100 text-red-800 text-1xl font-medium mr-2 px-4 py-1 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">編集</a>
             <a href="/meeting/{{$event->id}}/manual" class="bg-blue-100 text-blue-800 text-1xl font-medium mr-2 px-4 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">手入力</a>
+            <a href="/meeting/{{$event->id}}/decide" class="bg-green-100 text-green-800 text-1xl font-medium mr-2 px-4 py-1 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">日程調整</a>
         @endforeach
 </x-app-layout>

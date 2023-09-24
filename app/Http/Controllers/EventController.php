@@ -143,8 +143,33 @@ class EventController extends Controller
         $input_clientID = $request['clientID'];
         $input_start = $request['start'];
         
+        array_multisort( array_map( "strtotime", $input_start ), SORT_ASC, $input_start );
         foreach ($input_start as $value){
             $event->clients()->attach($input_clientID, ['start' => $value, 'register' => null]);
+        }
+        
+        return redirect('/meeting');
+    }
+    
+    public function result(Request $request, Event $event, Client $client){
+        $input = $request['register'];
+        $authID = Auth::user()->id;
+        
+        for($i = 0; $i < count($input); $i++){
+            $pieces = explode(" ", $input[$i]);
+            
+            if(count($pieces) == 1){
+                
+            }else{
+                $client = $client->getFromNameLast($pieces[2]);
+                
+                $start = $pieces[0]. "-" .$pieces[1];
+                
+                $event->clients()->attach($client->id, ['start' => $start, 'register' => $authID]);
+            }
+            
+            
+            
         }
         
         return redirect('/meeting');

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     
-    <form action="/meeting/{{$event->id}}/decide/result" method = "POST">
+    <form action="/meeting/{{$event->id}}/decide" method = "POST">
         @csrf
         
         <table>
@@ -52,20 +52,42 @@
                                 $day_print = $day->format('y-m-d');
                                 if($start_array[$count]->format('h-i') == $time_print && $start_array[$count]->format('y-m-d') == $day_print){
             ?>          
-                                    <td>
-                                        
-                                    </td>
+                                    <td></td>
             <?php
                                     if($count!= count($start_array) -1){
                                         $count += 1;
                                     }
                                 }else{
+                                    $name_last = [];
+                                    $name_first = [];
+                                    foreach( $clients as $temp ){
+                                        $tempDatetime = new Datetime($temp->pivot->start);
+                                        if($time_print == $tempDatetime->format('h-i') && $day_print == $tempDatetime->format('y-m-d')){
+                                            $name_last[] = $temp-> name_last;
+                                            $name_first[] = $temp -> name_first;
+                                        }
+                                    }
+                                    if(count($name_last) == 0){
             ?>
-                                    <td>
-                                        <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}">
-                                    </td>
-            
-            <?php                  
+                                        <td></td>
+            <?php
+                                    }else{
+            ?>
+                                        <td>
+                                            <select name="register[]">
+                                                <option value="">---</option>
+                <?php                           
+                                            for($i = 0; $i < count($name_last); $i++){
+                ?>
+                                                <option value = "{{$day_print}} {{$time_print}} {{$name_last[$i]}} {{$name_first[$i]}}">{{$name_last[$i]}} {{$name_first[$i]}}</option>
+                <?php
+                                                
+                                            }
+                ?>                            
+                                            </select>
+                                        </td>
+            <?php
+                                    }
                                 }
                                 $day->add(new DateInterval('P1D'));
                             }
@@ -95,7 +117,7 @@
                     $day_end = new DateTime($event['day_end']);
                     $day_end->add(new DateInterval('P1D'));
                     while( $day_end > $day_start){
-                         $day_print = $day_start->format('m-d');
+                        $day_print = $day_start->format('m-d');
                 ?>
                         <th colspan="{{$timeCount}}">{{$day_print}}</th>
                 <?php
@@ -125,6 +147,46 @@
             @foreach ($register as $value)
                 <tr>
                     <td class="w-20 px-4 py-2">{{$value->name_last}} {{$value->name_first}}</td>
+                    <?php
+                        $time = [];
+                        $count = 0;
+                        foreach($clients as $temp){
+                            if($temp->id == $value->id){
+                                $time[] = new DateTime($temp->pivot->start);
+                            }
+                        }
+                        $time[] = new Datetime('0000-00-00 00:00:00');
+                        $day_start = new DateTime($event['day_start']);
+                        $day_end = new DateTime($event['day_end']);
+                        while( $day_end >= $day_start){
+                            $time_start = new DateTime($event['time_start']);
+                            $time_end = new DateTime($event['time_end']);
+                            while( $time_end >= $time_start){
+                                $day_print = $day_start->format('y-m-d');
+                                $time_print = $time_start->format('h-i');
+                                if($time[$count]->format('h-i') == $time_print && $time[$count]->format('y-m-d') == $day_print){
+                    ?>
+                                    <td class="w-20 px-4 py-2">〇</td>        
+                    <?php
+
+                                    if($count != count($time)-1){
+                                        $count += 1;
+                                    }
+                                }else{
+                    ?>
+                                    <td class="w-20 px-4 py-2"></td>        
+                    <?php
+                                }
+                                $time_start ->modify("+$frame minute");    
+                            }
+                            $day_start->add(new DateInterval('P1D'));
+                        }
+                    ?>
+                    
+                    
+                    
+                    
+                    
                 </tr>
             @endforeach
         </table>

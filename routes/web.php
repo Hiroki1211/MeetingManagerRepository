@@ -92,6 +92,7 @@ Route::post('/meeting/delete', [EventController::class, 'checkDelete']);
 Route::post('/meeting/delete/check', [EventController::class, 'completeDelete']);
 Route::post('/meeting/{event}/manual', [EventController::class, 'manualAble']);
 Route::post('/meeting/{event}/manual/able', [EventController::class, 'manualSave']);
+Route::post('/meeting/{event}/decide', [EventController::class, 'result']);
 Route::post('/meeting/member/tag', [TagController::class, 'make']);
 Route::post('/meeting/member/tag/enchant', [UserController::class, 'saveTag']);
 Route::post('/meeting/member/make', [UserController::class, 'make']);

@@ -34,6 +34,7 @@ class Event extends Model
         return $this -> users() -> where('user_id', '=', $user_id)->get();
     }
     
+    // ホストが登録できないようにした日程を取得
     public function host(int $authID){
         return $this -> users() -> where([
                 ['start', '<>', NULL],
@@ -42,14 +43,16 @@ class Event extends Model
             ->get();
     }
     
+    //クライアントが登録した日程を取得
     public function client(int $authID){
         return $this -> clients() -> where([
                 ['start', '<>', NULL],
-                ['user_id', '<>', $authID],
+                ['register', '=', NULL],
             ])
             ->get();
     }
     
+    //登録されているユーザを取得
     public function registered(int $authID){
         return $this -> clients() -> where([
                 ['start', '=', NULL],
