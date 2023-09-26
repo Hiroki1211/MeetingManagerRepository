@@ -23,11 +23,11 @@ class Event extends Model
     ];
     
     public function users(){
-        return $this -> belongsToMany(User::class)->withPivot('start');
+        return $this -> belongsToMany(User::class)->withPivot('start', 'register');
     }
     
     public function clients(){
-        return $this -> belongsToMany(Client::class)->withPivot('start');
+        return $this -> belongsToMany(Client::class)->withPivot('start', 'register');
     }
     
     public function checked(int $user_id){
