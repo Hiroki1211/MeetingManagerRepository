@@ -1,17 +1,19 @@
 <x-client-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Main') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+    @foreach($events as $event)
+        <br/>
+        <div class="rounded border border-gray-500 py-6 px-20 mr-4 ml-4 bg-white">
+            <h2 class="font-bold text-2xl">{{$event->title}}</h2>
+            <p>入力期限：{{ $event->edit_limit }}</p>
+            <p>場所　　：{{ $event->locate }}</p>
+            <a href="/client/{{$event->id}}/edit" class="bg-red-100 text-red-800 text-1xl font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">入力</a>
+            <a href="/client/{{$event->id}}/result" class="bg-blue-100 text-blue-800 text-1xl font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">結果</a>
         </div>
-    </div>
+    @endforeach
+    
 </x-client-layout>

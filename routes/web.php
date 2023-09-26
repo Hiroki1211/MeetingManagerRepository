@@ -22,9 +22,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('client')->name('client.')->group(function(){
-    Route::get('/dashboard', function () {
-        return view('client.dashboard');
-    })->middleware(['auth:client', 'verified'])->name('dashboard');
+    Route::get('/dashboard', [ClientController::class, 'main'])->middleware(['auth:client', 'verified'])->name('dashboard');
+
+    Route::get('/{event}/edit', [ClientController::class, 'edit']);
+    
+    Route::post('/{event}/edit', [ClientController::class, 'saveEdit']);
 
     Route::middleware('auth:client')->group(function () {
         Route::get('/profile', [ProfileOfClientController::class, 'edit'])->name('profile.edit');
