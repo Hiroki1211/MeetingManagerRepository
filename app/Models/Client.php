@@ -60,7 +60,7 @@ class Client extends Authenticatable
     } 
     
     public function events(){
-        return $this->belongsToMany(Event::class)->withPivot('start');
+        return $this->belongsToMany(Event::class)->withPivot('start', 'register');
     }
     
     public function getFromNameLast(string $name_last){

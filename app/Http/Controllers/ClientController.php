@@ -18,6 +18,25 @@ class ClientController extends Controller
         return view('/client/dashboard')->with(['events' => $events]);
     }
     
+    public function result(Event $event){
+        $authID = Auth::guard('client')->user()->id;
+        $temps = $event->clients()->where('id', '=', $authID)->get();
+        
+        foreach($temps as $value){
+            if($value->pivot->start != null){
+                $temps2[] = $value;
+            }
+        }
+        
+        foreach($temps2 as $value){
+            if($value->pivot->register != null){
+                $registered = $value->pivot->start;
+            }
+        }
+        
+        return view('/client/result')->with(['registered' => $registered, 'event' => $event]);
+    }
+    
     
     public function member(Client $client){
         return view('/meeting/client-member')->with(['clients' => $client->get()]);

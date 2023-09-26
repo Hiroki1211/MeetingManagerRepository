@@ -25,6 +25,7 @@ Route::prefix('client')->name('client.')->group(function(){
     Route::get('/dashboard', [ClientController::class, 'main'])->middleware(['auth:client', 'verified'])->name('dashboard');
 
     Route::get('/{event}/edit', [ClientController::class, 'edit']);
+    Route::get('{event}/result', [ClientController::class, 'result']);
     
     Route::post('/{event}/edit', [ClientController::class, 'saveEdit']);
 
