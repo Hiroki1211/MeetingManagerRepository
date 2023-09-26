@@ -70,4 +70,11 @@ class Client extends Authenticatable
     public function getFromID(int $id){
         return $this->where('id', '=', $id) -> first();
     }
+    
+    public function registeredEvent(){
+        return $this -> events() -> where([
+                ['start', '=', NULL],
+            ])
+            ->get();
+    }
 }

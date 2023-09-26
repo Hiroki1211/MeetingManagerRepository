@@ -7,9 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
 use App\Models\User;
 use App\Models\Tag;
+use App\Models\Event;
 
 class ClientController extends Controller
 {
+    public function main(Client $client){
+        $client = $client->getFromID(Auth::guard('client')->user()->id);
+        $events = $client -> registeredEvent();
+        
+        return view('/client/dashboard')->with(['events' => $events]);
+    }
+    
+    
     public function member(Client $client){
         return view('/meeting/client-member')->with(['clients' => $client->get()]);
     }
@@ -54,5 +63,25 @@ class ClientController extends Controller
             $client->tags()->attach($input_tag);
         }
         return redirect('/meeting/client/member/tag');
-    }    
+    }
+    
+    public function edit(Event $event){
+        $host = $event->host();
+        $authID = Auth::guard('client')->user()->id;
+        $clientRegistered = $event->client($authID);
+        
+        return view('client/edit')->with(['hosts' => $host, 'clientRegistered' => $clientRegistered, 'event' => $event]);
+    }
+    
+    public function saveEdit(Request $request, Event $event){
+        $authID = Auth::guard('client')->user()->id;
+        $input_start = $request['start'];
+        
+        array_multisort( array_map( "strtotime", $input_start ), SORT_ASC, $input_start );
+        foreach ($input_start as $value){
+            $event->clients()->attach($authID, ['start' => $value, 'register' => null]);
+        }
+        
+        return redirect('/client/dashboard');
+    }
 }

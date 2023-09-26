@@ -35,10 +35,9 @@ class Event extends Model
     }
     
     // ホストが登録できないようにした日程を取得
-    public function host(int $authID){
+    public function host(){
         return $this -> users() -> where([
                 ['start', '<>', NULL],
-                ['user_id', '=', $authID],
             ])
             ->get();
     }

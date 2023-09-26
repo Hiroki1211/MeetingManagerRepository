@@ -103,12 +103,11 @@ class EventController extends Controller
         $event->fill($input_event);
         $event->update();
   
-        $event->users()->detach();
-        $event->clients()->detach();
         foreach ($input_start as $value){
-            $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
+            $event->users()->syncWithoutDetaching($input_authID, ['start' => $value, 'register' => null]);
         }
-        $event->clients()->attach($input_clientID, ['start' => null, 'register' => $input_authID]);
+        $event->clients()->syncWithoutDetaching($input_clientID, ['start' => null, 'register' => $input_authID]);
+        $event->clients()->updateExistingPivot($input_clientID, ['register' => $input_authID]);
         
         return redirect('/meeting');
     }
@@ -116,7 +115,7 @@ class EventController extends Controller
     public function decide(Event $event){
         
         $authID = Auth::user()->id;
-        $hosts = $event->host($authID);
+        $hosts = $event->host();
         $clients = $event->client($authID);
         $register = $event->registered($authID);
         
@@ -132,7 +131,7 @@ class EventController extends Controller
     
     public function manualAble(Event $event, Client $client, Request $request){
         $authID = Auth::user()->id;
-        $hosts = $event->host($authID);
+        $hosts = $event->host();
         $input = $request['clientID'];
         $client = $client -> where('id', '=', $input) -> first();
         
@@ -164,7 +163,6 @@ class EventController extends Controller
                 $client = $client->getFromNameLast($pieces[2]);
                 
                 $start = $pieces[0]. "-" .$pieces[1];
-                array_multisort( array_map( "strtotime", $start ), SORT_ASC, $start );
                 
                 $event->clients()->attach($client->id, ['start' => $start, 'register' => $authID]);
             }
