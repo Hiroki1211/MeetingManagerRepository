@@ -60,4 +60,12 @@ class Event extends Model
             ])
             ->get();
     }
+    
+    public function decided(int $authID){
+        return $this -> clients() -> where([
+                ['start', '<>', NULL],
+                ['register', '=', $authID],
+            ])
+            ->get();
+    }
 }
