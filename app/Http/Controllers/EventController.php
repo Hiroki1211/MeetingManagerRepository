@@ -164,14 +164,26 @@ class EventController extends Controller
                 $client = $client->getFromNameLast($pieces[2]);
                 
                 $start = $pieces[0]. "-" .$pieces[1];
+                array_multisort( array_map( "strtotime", $start ), SORT_ASC, $start );
                 
                 $event->clients()->attach($client->id, ['start' => $start, 'register' => $authID]);
             }
-            
-            
-            
         }
         
         return redirect('/meeting');
+    }
+    
+    public function showResult(Event $event, Client $client){
+        $authID = Auth::user()->id;
+        $decided = $event -> decided($authID);
+        $name_last = [];
+        $name_first = [];
+        foreach($decided as $value){
+            $temp = $client -> getFromID($value->id);
+            $name_last[] = $temp -> name_last;
+            $name_first[] = $temp -> name_first;
+        }
+
+        return view('/meeting/main-result')->with(['event' => $event, 'decided' => $decided, 'name_last' => $name_last, 'name_first' => $name_first]);
     }
 }

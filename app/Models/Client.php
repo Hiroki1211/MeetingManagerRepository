@@ -66,4 +66,8 @@ class Client extends Authenticatable
     public function getFromNameLast(string $name_last){
         return $this->where('name_last', '=', $name_last)->first();
     }
+    
+    public function getFromID(int $id){
+        return $this->where('id', '=', $id) -> first();
+    }
 }

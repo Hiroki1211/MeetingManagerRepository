@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('client')->name('client.')->group(function(){
     Route::get('/dashboard', function () {
-        dd("aa");
         return view('client.dashboard');
     })->middleware(['auth:client', 'verified'])->name('dashboard');
 
@@ -64,6 +63,7 @@ Route::get('/meeting/{event}/edit', [EventController::class, 'edit']);
 Route::get('/meeting/{event}/decide', [EventController::class, 'decide']);
 Route::get('/meeting/delete', [EventController::class, 'delete']);
 Route::get('/meeting/{event}/manual', [EventController::class, 'manualClient']);
+Route::get('/meeting/{event}/result', [EventController::class, 'showResult']);
 
 Route::get('/meeting/member', [UserController::class, 'member'])->name('member');
 Route::get('/meeting/member/make', function(){
