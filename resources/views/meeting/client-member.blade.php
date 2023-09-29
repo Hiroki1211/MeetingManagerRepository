@@ -5,22 +5,22 @@
         </h2>
     </x-slot>
     
-        <div class = "menu">
+        <div class = "menu mt-4 ml-4">
             <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='member/make'">アカウント発行</button>
             <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./member/tag'">タグ管理</button>
         </div>
         <form action="/meeting/client/member/delete" method="GET">
             @csrf
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 ml-4 mr-4">
+                <table class=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm"></th>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm"class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">ID</th>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">名前</th>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">なまえ</th>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">タグ</th>
-                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">e-mail</th>
+                            <th class=" text-left py-3 px-4 uppercase font-semibold text-sm"></th>
+                            <th class=" text-left py-3 px-4 uppercase font-semibold text-sm"class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">ID</th>
+                            <th class=" text-left py-3 px-4 uppercase font-semibold text-sm">名前</th>
+                            <th class=" text-left py-3 px-4 uppercase font-semibold text-sm">なまえ</th>
+                            <th class=" text-left py-3 px-4 uppercase font-semibold text-sm">タグ</th>
+                            <th class=" text-left py-3 px-4 uppercase font-semibold text-sm">e-mail</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -64,7 +64,7 @@
                 </table>
             </div>
 
-            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit">アカウント削除</button>
+            <button class="mt-4 ml-4 bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit">アカウント削除</button>
         </form>
 
 </x-app-layout>

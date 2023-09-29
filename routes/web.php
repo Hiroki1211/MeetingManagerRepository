@@ -115,9 +115,7 @@ Route::delete('/meeting/member/tag', [TagController::class, 'delete']);
 Route::delete('/meeting/client/member/delete', [ClientController::class, 'delete']);
 Route::delete('/meeting/client/member/tag', [TagController::class, 'clientDelete']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [EventController::class, 'main'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
