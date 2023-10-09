@@ -11,15 +11,19 @@
                 <div class="title mb-2">
                     <p>タイトル：<input type="text" name="event[title]" value="{{ $event->title }}"/></p>
                 </div>
+                <p class="notChoose__error" style="color:red">{{ $errors->first('event.title') }}</p>
                 <div class="edit_limit mb-2"> 
                     <p>入力期限：<input type="date" name="event[edit_limit]" value="{{ $event->edit_limit }}"></p>
                 </div>
+                <p class="notChoose__error" style="color:red">{{ $errors->first('event.edit_limit') }}</p>
                 <div class="day_start mb-2">
                     <p>開始日：<input type="date" name="event[day_start]" value="{{$event->day_start}}"></p>
                 </div>
+                <p class="notChoose__error" style="color:red">{{ $errors->first('event.day_start') }}</p>
                 <div class="day_end mb-2">
                     <p>終了日：<input type="date" name="event[day_end]" value="{{$event->day_end}}"></p>
                 </div>
+                <p class="notChoose__error" style="color:red">{{ $errors->first('event.day_end') }}</p>
                 <div class ="frame mb-2">
                     <p>
                         1コマ：
@@ -88,12 +92,15 @@
                 <div class="time_start mb-2">
                     <p>開始時刻：<input type="time" step="600" name="event[time_start]" value="{{$event->time_start}}"></p>
                 </div>
+                <p class="notChoose__error" style="color:red">{{ $errors->first('event.time_start') }}</p>
                 <div class="time_end mb-2">
                     <p>終了時刻：<input type="time" name="event[time_end]" value="{{$event->time_end}}"></p>
                 </div>
+                <p class="notChoose__error" style="color:red">{{ $errors->first('event.time_end') }}</p>
                 <div class="locate mb-2">
                     <p>場所：<input type="text" name="event[locate]" value="{{$event->locate}}"/></p>
                 </div>
+                <p class="notChoose__error" style="color:red">{{ $errors->first('event.locate') }}</p>
                 <div class="comment mb-2">
                     <!--nullable-->
                     <p>コメント：<textarea name="event[comment]" value="{{$event->comment}}"></textarea></p>

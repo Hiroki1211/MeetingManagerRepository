@@ -9,20 +9,25 @@
             @csrf
             <div class = "mt-4 ml-4">
                 <div class="name_last mb-2">
-                    <p>性：<input type="text" name="user[name_last]"></p>
+                    <p>性：<input type="text" name="user[name_last]" value="{{ old('user.name_last') }}"></p>
                 </div>
+                <p class="title__error" style="color:red">{{ $errors->first('user.name_last') }}</p>
                 <div class="name_first mb-2">
-                    <p>名：<input type="text" name="user[name_first]"></p>
-                </div> 
+                    <p>名：<input type="text" name="user[name_first]" value="{{ old('user.name_first') }}"></p>
+                </div>
+                <p class="title__error" style="color:red">{{ $errors->first('user.name_first') }}</p>
                 <div class="name_last_read mb-2">
-                    <p>セイ：<input type="text" name="user[name_last_read]"></p>
+                    <p>セイ：<input type="text" name="user[name_last_read]" value="{{ old('user.name_last_read') }}"></p>
                 </div>
+                <p class="title__error" style="color:red">{{ $errors->first('user.name_last_read') }}</p>
                 <div class="name_first_read mb-2">
-                    <p>メイ：<input type="text" name="user[name_first_read]"></p>
+                    <p>メイ：<input type="text" name="user[name_first_read]" value="{{ old('user.name_first_read') }}"></p>
                 </div>
+                <p class="title__error" style="color:red">{{ $errors->first('user.name_first_read') }}</p>
                 <div class="password mb-2">
-                    <p>パスワード：<input type="text" name="user[password]"></p>
+                    <p>パスワード：<input type="text" name="user[password]" value="{{ old('user.password') }}"></p>
                 </div>
+                <p class="title__error" style="color:red">{{ $errors->first('user.password') }}</p>
             </div>
             
             <button class="mt-4 ml-4 bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit">作成</button>

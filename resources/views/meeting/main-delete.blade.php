@@ -32,6 +32,8 @@
                     </tbody>
                 </table>
             </div>
+            
+        <p class="notChoose__error" style="color:red">{{ $errors->first('eventID') }}</p>
         
         <button class="mt-4 ml-4 bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit">削除</button>
         
