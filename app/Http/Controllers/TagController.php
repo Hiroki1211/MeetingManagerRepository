@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tag;
 use App\Models\User;
+use App\Http\Requests\TagIDRequest;
+use App\Http\Requests\TagPostRequest;
 
 class TagController extends Controller
 {
-    public function make(Request $request, Tag $tag, User $user){
+    public function make(TagPostRequest $request, Tag $tag, User $user){
         $input = $request['tag'];
         $tag->name = $input["name"];
         $tag->color = $input["color"];
@@ -20,7 +22,7 @@ class TagController extends Controller
         return redirect('/meeting/member/tag');
     }
     
-    public function clientMake(Request $request, Tag $tag, User $user){
+    public function clientMake(TagPostRequest $request, Tag $tag, User $user){
         $input = $request['tag'];
         $tag->name = $input["name"];
         $tag->color = $input["color"];
@@ -35,13 +37,13 @@ class TagController extends Controller
         return view('meeting/member-tag')->with(['tags' => $tag->get()]);
     }
     
-    public function search(Request $request, Tag $tag){
+    public function search(TagIDRequest $request, Tag $tag){
         $input = $request['tagID'];
         $tags = $tag->whereIn('id', $input)->get();
         return view("meeting/member-tag-delete")->with(['tags' => $tags]);
     }
     
-    public function clientSearch(Request $request, Tag $tag){
+    public function clientSearch(TagIDRequest $request, Tag $tag){
         $input = $request['tagID'];
         $tags = $tag->whereIn('id', $input)->get();
         return view("meeting/client-member-tag-delete")->with(['tags' => $tags]);

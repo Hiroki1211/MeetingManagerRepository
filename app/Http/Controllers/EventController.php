@@ -7,14 +7,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Client;
+use App\Http\Requests\ClientIDRequest;
+use App\Http\Requests\EventPostRequest;
+use App\Http\Requests\EventIDRequest;
 
 class EventController extends Controller
 {
     public function main(Event $event){
-        return view('/meeting/main')->with(['events' => $event->get()]);
+        return view('/meeting/main')->with(['events' => $event->getGroup(Auth::user()->group_id)]);
     }
     
-    public function make(Request $request){
+    public function make(EventPostRequest $request){
         $event = $request['event'];
         $authID = Auth::user()->id;
 
@@ -25,7 +28,7 @@ class EventController extends Controller
         return view('/meeting/main-delete')->with(['events' => $event->get()]);
     }
     
-    public function checkDelete(Request $request, Event $event){
+    public function checkDelete(EventIDRequest $request, Event $event){
         $input = $request['eventID'];
         $events = $event->whereIn('id', $input)->get();
         
@@ -59,7 +62,7 @@ class EventController extends Controller
 
         $event->fill($input_event);
         $user->where('id', '=', $input_authID)->get();
-        $event->rest = $user->group_id;
+        $event->group_id = $user->group_id;
         $event->save();
         foreach ($input_start as $value){
             $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
@@ -73,7 +76,7 @@ class EventController extends Controller
         return view('/meeting/main-edit')->with(['event' => $event]);
     }
     
-    public function updateAble(Request $request, Event $event){
+    public function updateAble(EventPostRequest $request, Event $event){
         $input = $request['event'];
         $authID = Auth::user()->id;
         
@@ -129,7 +132,7 @@ class EventController extends Controller
         return view('/meeting/main-manual')->with(['event' => $event, 'register' => $register]);
     }
     
-    public function manualAble(Event $event, Client $client, Request $request){
+    public function manualAble(Event $event, Client $client, ClientIDRequest $request){
         $authID = Auth::user()->id;
         $hosts = $event->host();
         $input = $request['clientID'];

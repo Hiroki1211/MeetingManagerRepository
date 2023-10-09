@@ -12,6 +12,7 @@
                     <p>名前</p>
                     <input type='text' name = 'tag[name]'>
                 </div>
+                <p class="title__error" style="color:red">{{ $errors->first('tag.name') }}</p>
                 <div class = "tag_color">
                     <p>色</p>
                     <select name = "tag[color]">

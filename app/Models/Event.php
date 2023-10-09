@@ -19,8 +19,12 @@ class Event extends Model
         'time_end',
         'locate',
         'comment',
-        'rest'
+        'group_id'
     ];
+    
+    public function getGroup(int $group_id){
+        return $this->where('group_id', '=', $group_id)->get();
+    }
     
     public function users(){
         return $this -> belongsToMany(User::class)->withPivot('start', 'register');
@@ -60,6 +64,7 @@ class Event extends Model
             ->get();
     }
     
+    //決定したユーザを取得
     public function decided(int $authID){
         return $this -> clients() -> where([
                 ['start', '<>', NULL],

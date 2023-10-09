@@ -34,6 +34,9 @@
                     </tbody>
                 </table>
             </div>
+            
+            <p class="notChoose__error" style="color:red">{{ $errors->first('tagID') }}</p>
+            
             <div class = "menu mt-4 ml-4">
                 <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type = "submit" value = "enchant" formaction = "/meeting/client/member/tag/enchant">タグ付与</button>
                 <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type = "submit" value = "delete" formaction = "/meeting/client/member/tag/delete">タグ削除</button>

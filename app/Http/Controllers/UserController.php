@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Tag;
+use App\Http\Requests\UserIDRequest;
+use App\Http\Requests\TagIDRequest;
+use App\Http\Requests\MemberPostRequest;
 
 class UserController extends Controller
 {
@@ -24,13 +27,13 @@ class UserController extends Controller
         return view('meeting/main-make-able-member')->with(['users' => $user->get()]);
     }
     
-    public function enchant(Request $request, User $user, Tag $tag){
+    public function enchant(TagIDRequest $request, User $user, Tag $tag){
         $input=$request['tagID'];
         $tags = $tag->whereIn('id', $input)->get();
         return view('meeting/member-tag-enchant')->with(['users' => $user->get(), 'tags' => $tags]);
     }
     
-    public function make(Request $request, User $user){
+    public function make(MemberPostRequest $request, User $user){
         $input=$request['user'];
         $authID = Auth::user()->id;
         $group_id = $user->groupID($authID);
@@ -40,7 +43,7 @@ class UserController extends Controller
         return redirect('/meeting/member');
     }
  
-    public function pass(Request $request, User $user){
+    public function pass(UserIDRequest $request, User $user){
         $input = $request['userID'];
         $users = $user->whereIn('id', $input)->get();
         return view('/meeting/member-delete')->with(['users' => $users]);
@@ -55,7 +58,7 @@ class UserController extends Controller
         return redirect('/meeting/member');
     }
     
-    public function saveTag(Request $request, User $user, Tag $tag){
+    public function saveTag(UserIDRequest $request, User $user, Tag $tag){
         $input_tag = $request->tagID;
         $input_user = $request['userID'];
         $users = $user->whereIn('id', $input_user)->get();

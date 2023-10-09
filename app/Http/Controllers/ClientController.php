@@ -8,6 +8,9 @@ use App\Models\Client;
 use App\Models\User;
 use App\Models\Tag;
 use App\Models\Event;
+use App\Http\Requests\ClientIDRequest;
+use App\Http\Requests\ClientPostRequest;
+use App\Http\Requests\TagIDRequest;
 
 class ClientController extends Controller
 {
@@ -42,7 +45,7 @@ class ClientController extends Controller
         return view('/meeting/client-member')->with(['clients' => $client->get()]);
     }
     
-    public function make(Request $request, Client $client, User $user){
+    public function make(ClientPostRequest $request, Client $client, User $user){
         $input=$request['client'];
         $authID = Auth::user()->id;
         $group_id = $user->groupID($authID);
@@ -52,7 +55,7 @@ class ClientController extends Controller
         return redirect('/meeting/client/member');
     }
     
-    public function pass(Request $request, Client $client){
+    public function pass(ClientIDRequest $request, Client $client){
         $input = $request['clientID'];
         $clients = $client->whereIn('id', $input)->get();
         return view('/meeting/client-member-delete')->with(['clients' => $clients]);
@@ -67,13 +70,13 @@ class ClientController extends Controller
         return redirect('/meeting/client/member');
     }
     
-    public function enchant(Request $request, Client $client, Tag $tag){
+    public function enchant(TagIDRequest $request, Client $client, Tag $tag){
         $input=$request['tagID'];
         $tags = $tag->whereIn('id', $input)->get();
         return view('meeting/client-member-tag-enchant')->with(['clients' => $client->get(), 'tags' => $tags]);
     }
     
-    public function saveTag(Request $request, Client $client, Tag $tag){
+    public function saveTag(ClientIDRequest $request, Client $client, Tag $tag){
         $input_tag = $request->tagID;
         $input_client = $request['clientID'];
         $clients = $client->whereIn('id', $input_client)->get();
