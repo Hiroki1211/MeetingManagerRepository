@@ -12,10 +12,15 @@ class Tag extends Model
     protected $fillable = [
         'id',
         'name',
-        'color'
+        'color',
+        'group_id'
     ];
 
     public $timestamps = false;
+    
+    public function getGroup(int $group_id){
+        return $this->where('group_id', '=', $group_id)->get();
+    }
     
     public function users(){
         return $this -> belongsToMany(User::class);

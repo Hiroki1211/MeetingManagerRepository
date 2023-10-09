@@ -20,11 +20,10 @@ class EventPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'event.titie' => 'required|string',
+            'event.title' => 'required|string',
             'event.edit_limit' => 'required',
             'event.day_start' => 'required',
             'event.day_end' => 'required',
-            'event.frame' => 'required',
             'event.time_start' => 'required',
             'event.time_end' => 'required',
             'event.locate' => 'required|string',

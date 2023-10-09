@@ -14,7 +14,7 @@ use App\Http\Requests\EventIDRequest;
 class EventController extends Controller
 {
     public function main(Event $event){
-        return view('/meeting/main')->with(['events' => $event->getGroup(Auth::user()->group_id)]);
+        return view('/meeting/main')->with(['events' => $event->where('group_id', '=', Auth::user()->group_id)->get()]);
     }
     
     public function make(EventPostRequest $request){
@@ -25,19 +25,19 @@ class EventController extends Controller
     }
     
     public function delete(Event $event){
-        return view('/meeting/main-delete')->with(['events' => $event->get()]);
+        return view('/meeting/main-delete')->with(['events' => $event->where('group_id', '=', Auth::user()->group_id)->get()]);
     }
     
     public function checkDelete(EventIDRequest $request, Event $event){
         $input = $request['eventID'];
-        $events = $event->whereIn('id', $input)->get();
+        $events = $event->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
         
         return view('/meeting/main-delete-check')->with(['events' => $events]);
     }
     
     public function completeDelete(Request $request, Event $event){
         $input = $request['eventID'];
-        $events = $event->whereIn('id', $input)->get();
+        $events = $event->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
         
         foreach ($events as $event){
             $event->delete();
@@ -51,7 +51,7 @@ class EventController extends Controller
         $input_authID = $request['authID'];
         $input_event = $request['event'];
         
-        return view('/meeting/main-make-able-member')->with(['start' => $input_start, 'authID' => $input_authID, 'event'=>$input_event, 'clients' => $client->get()]);
+        return view('/meeting/main-make-able-member')->with(['start' => $input_start, 'authID' => $input_authID, 'event'=>$input_event, 'clients' => $client->where('group_id', '=', Auth::user()->group_id)->get()]);
     }
     
     public function saveEvent(Request $request, Event $event , User $user, Client $client){
@@ -61,8 +61,8 @@ class EventController extends Controller
         $input_clientID = $request['clientID'];
 
         $event->fill($input_event);
-        $user->where('id', '=', $input_authID)->get();
-        $event->group_id = $user->group_id;
+        $user->where('id', '=', $input_authID)->where('group_id', '=', Auth::user()->group_id)->get();
+        $event->group_id = Auth::user()->group_id;
         $event->save();
         foreach ($input_start as $value){
             $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
@@ -92,9 +92,9 @@ class EventController extends Controller
         $event -> fill($input_event);
         $authID = $request['authID'];
         
-        $registeredUser = $event->clients()->where('register', '<>', null)->get();
+        $registeredUser = $event->clients()->where('register', '<>', null)->where('group_id', '=', Auth::user()->group_id)->get();
 
-        return view('/meeting/main-edit-able-member')->with(['start' => $input_start, 'authID' => $authID, 'event'=>$event, 'clients' => $client->get(), 'registered' => $registeredUser]);  
+        return view('/meeting/main-edit-able-member')->with(['start' => $input_start, 'authID' => $authID, 'event'=>$event, 'clients' => $client->where('group_id', '=', Auth::user()->group_id)->get(), 'registered' => $registeredUser]);  
     }
     
     public function update(Request $request, Event $event , User $user, Client $client){

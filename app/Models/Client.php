@@ -55,6 +55,10 @@ class Client extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     }
     
+    public function getGroup(int $group_id){
+        return $this->where('group_id', '=', $group_id)->get();
+    }
+    
     public function tags(){
         return $this->belongsToMany(Tag::class);
     } 
