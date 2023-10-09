@@ -47,8 +47,8 @@ class User extends Authenticatable
     ];
     
     public function groupID(int $group_id){
-        $this -> where('group_id', '=', $group_id)->get();
-        return $this->group_id;
+        $temp = $this -> where('group_id', '=', $group_id)->get();
+        return $temp->group_id;
     }
     
     public function events(){

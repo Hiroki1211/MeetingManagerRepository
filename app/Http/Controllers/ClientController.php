@@ -42,13 +42,13 @@ class ClientController extends Controller
     
     
     public function member(Client $client){
-        return view('/meeting/client-member')->with(['clients' => $client->get()]);
+        return view('/meeting/client-member')->with(['clients' => $client->where('group_id', '=', Auth::user()->group_id)->get()]);
     }
     
     public function make(ClientPostRequest $request, Client $client, User $user){
         $input=$request['client'];
         $authID = Auth::user()->id;
-        $group_id = $user->groupID($authID);
+        $group_id = Auth::user()->group_id;
         $client->fill($input);
         $client->group_id = $group_id;
         $client->save();
@@ -57,7 +57,7 @@ class ClientController extends Controller
     
     public function pass(ClientIDRequest $request, Client $client){
         $input = $request['clientID'];
-        $clients = $client->whereIn('id', $input)->get();
+        $clients = $client->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
         return view('/meeting/client-member-delete')->with(['clients' => $clients]);
     }
     
@@ -72,8 +72,8 @@ class ClientController extends Controller
     
     public function enchant(TagIDRequest $request, Client $client, Tag $tag){
         $input=$request['tagID'];
-        $tags = $tag->whereIn('id', $input)->get();
-        return view('meeting/client-member-tag-enchant')->with(['clients' => $client->get(), 'tags' => $tags]);
+        $tags = $tag->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
+        return view('meeting/client-member-tag-enchant')->with(['clients' => $client->where('group_id', '=', Auth::user()->group_id)->get(), 'tags' => $tags]);
     }
     
     public function saveTag(ClientIDRequest $request, Client $client, Tag $tag){

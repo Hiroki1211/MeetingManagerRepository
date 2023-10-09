@@ -51,17 +51,20 @@
                                 <td></td>
             <?php
                             }else{
-                                if($day_print == $time[$count]->format('y-m-d') && $time_print == $time[$count]->format('h-i')){
-            ?>
-                                    <td class="whitespace-nowrap px-2 py-2 font-medium text-gray-900">{{$name_last[$count]}} {{$name_first[$count]}}</td>
-            <?php                                     
-                                    if($count != count($time)-1){
-                                        $count += 1;
+                                $func = 0;
+                                for($hoge = 0; $hoge < count($time); $hoge++){
+                                    if($day_print == $time[$hoge]->format('y-m-d') && $time_print == $time[$hoge]->format('h-i')){
+                                        $func = 1;
+                ?>
+                                        <td class="whitespace-nowrap px-2 py-2 font-medium text-gray-900">{{$name_last[$hoge]}} {{$name_first[$hoge]}}</td>
+                <?php                                     
                                     }
-                                }else{
-            ?>
-                                    <td></td>
-            <?php                            
+                                }
+                                
+                                if($func == 0){
+                ?>
+                                        <td></td>
+                <?php             
                                 }
                             }
                             $day->add(new DateInterval('P1D'));
