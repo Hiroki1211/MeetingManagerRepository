@@ -11,6 +11,7 @@ use App\Models\Event;
 use App\Http\Requests\ClientIDRequest;
 use App\Http\Requests\ClientPostRequest;
 use App\Http\Requests\TagIDRequest;
+use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -51,6 +52,7 @@ class ClientController extends Controller
         $group_id = Auth::user()->group_id;
         $client->fill($input);
         $client->group_id = $group_id;
+        $client->password = Hash::make($client->password);
         $client->save();
         return redirect('/meeting/client/member');
     }

@@ -9,6 +9,7 @@ use App\Models\Tag;
 use App\Http\Requests\UserIDRequest;
 use App\Http\Requests\TagIDRequest;
 use App\Http\Requests\MemberPostRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -38,6 +39,7 @@ class UserController extends Controller
         $group_id = Auth::user()->group_id;
         $user->group_id = $group_id;
         $user->fill($input);
+        $user->password = Hash::make($user->password);
         $user->save();
         return redirect('/meeting/member');
     }
