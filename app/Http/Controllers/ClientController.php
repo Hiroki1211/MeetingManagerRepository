@@ -124,4 +124,31 @@ class ClientController extends Controller
         
         return redirect('/client/dashboard');
     }
+    
+    public function detach(Tag $tag){
+        return view('/meeting/client-member-tag-detach')->with(['tags' => $tag->get()]);
+    }
+    
+    public function detachClient(TagIDRequest $request, Tag $tag){
+        $input = $request['tagID'];
+        
+        $tag = $tag -> where('id', '=', $input)->first();
+        $clients = $tag->clients()->get();
+        
+        return view('/meeting/client-member-tag-detach-client')->with(['clients' => $clients, 'tag' => $tag]);
+    }
+    
+    public function detachEnd(ClientIDRequest $request, Client $client, Tag $tag){
+        $input = $request['clientID'];
+        $tagID = $request['tagID'];
+        $clients = $client->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
+        
+        $tag = $tag->where('id', '=', $tagID)->first();
+        $tag -> clients() -> detach($clients);
+        
+        return redirect('/meeting/client/member/tag');
+    }    
+    
+    
+    
 }

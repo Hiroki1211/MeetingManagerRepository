@@ -83,4 +83,28 @@ class UserController extends Controller
         }
         return redirect('/meeting/member/tag');
     }
+    
+    public function detach(Tag $tag){
+        return view('/meeting/member-tag-detach')->with(['tags' => $tag->get()]);
+    }
+    
+    public function detachUser(TagIDRequest $request, Tag $tag){
+        $input = $request['tagID'];
+        
+        $tag = $tag -> where('id', '=', $input)->first();
+        $users = $tag->users()->get();
+        
+        return view('/meeting/member-tag-detach-user')->with(['users' => $users, 'tag' => $tag]);
+    }
+    
+    public function detachEnd(UserIDRequest $request, User $user, Tag $tag){
+        $input = $request['userID'];
+        $tagID = $request['tagID'];
+        $users = $user->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
+        
+        $tag = $tag->where('id', '=', $tagID)->first();
+        $tag -> users() -> detach($users);
+        
+        return redirect('/meeting/member/tag');
+    }
 }
