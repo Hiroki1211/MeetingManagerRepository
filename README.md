@@ -1,59 +1,73 @@
+# Meeting Manager
+
+## 目次
+
+1. 概要
+2. 目的
+3. 基本的な使用方法
+4. マニュアル
+5. リリースノート
+6. サポート窓口
+
+## 概要
+「Meeting Manager」は、教育現場での三者面談の一連の作業を1つのサイトで行うサービスです。
+三者面談用紙の回収・回収データ入力・調整結果用紙の配布をこのサービスのみで実現できます。
+
+## 目的
+「Meeting Manager」の目的は、教育者の作業効率向上です。
+このサービスを使用することで改善できることを以下に示します。
+- 一連の作業のデジタル化による作業時間短縮
+- 三者面談用紙を家に忘れることを防止
+
+## 基本的な使用方法
+「Meeting Manager」のアカウントは「Client」・「User」・「Admin」の三種類です。全てのアカウントのログインには「ID」・「パスワード」を用います。
+- Client:生徒・保護者用アカウント
+- User：教員用アカウント
+- Admin：学校用アカウント
+
+生徒・保護者は、生徒用アカウントでログインし、登録されているイベントに対して、参加できる日時を入力します。生徒・保護者は、教員が日時を決定した後、結果を閲覧できます。
+教員は、イベント作成・編集・調整・結果表示と、生徒アカウント・教員アカウントの管理ができます。生徒・教員用のアカウントを発行することもできます。
+学校用アカウントは、閲覧制限のために使用します。教員は同じグループID（学校アカウントのID）を登録している生徒・教員アカウントの情報のみ閲覧できます。
+
+## マニュアル
+### 生徒
+生徒アカウントでできることは、登録されているそれぞれのイベントに対して参加できる日時を入力すること・結果閲覧です。
+結果では「日程」・「時間」・「場所」・「コメント」が表示されます。
+
+### 教員
+#### イベント
+イベント作成の手順は以下の通りです。
+1. イベントの基本情報を入力する
+2. 生徒が登録できない日時を指定する
+3. 参加するユーザを指定する
+
+手順2で登録した日時は、生徒の日時登録でデフォルトで表示されません。
+
+イベントそれぞれについて、できる機能は以下の通りです。
+- 編集
+- 手入力
+- 日程調整
+- 結果閲覧
+
+##### 編集
+イベント作成時に登録した全てのデータを編集することができます。
+
+##### 手入力
+手入力機能は、このサービスを利用できない生徒のデータを教員が入力するための機能です。
+手入力の手順は以下の通りです。
+1. 登録するユーザを選択
+2. 登録する日時を選択
+
+##### 日程調整
+
+##### 結果閲覧
+
+#### ユーザ管理
 
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## リリースノート
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## サポート窓口
