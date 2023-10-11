@@ -48,9 +48,9 @@
                 </thead>
                 <tbody class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     @foreach ($clients as $client)
-                        <tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                <input type="checkbox" name="clientID[]" value="{{$client->id}}">
+                                <input type="checkbox" name="clientID[]" value="{{$client->id}}" class ="h-5 w-5 rounded border-gray-300">
                             </td>
                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $client-> name_last}} {{ $client-> name_first}}</td>
                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $client-> name_last_read}} {{ $client-> name_first_read}}</td>

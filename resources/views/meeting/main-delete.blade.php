@@ -22,7 +22,7 @@
                     <tbody class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         @foreach ($events as $event)
                             <tr>
-                                <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"><input type="checkbox" name="eventID[]" value="{{$event->id}}"></td>
+                                <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"><input type="checkbox" name="eventID[]" value="{{$event->id}}" class ="h-5 w-5 rounded border-gray-300"></td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{$event->title}}</td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{$event->created_at}}</td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{$event->day_start}} ～ {{$event->day_end}}</td>

@@ -69,7 +69,7 @@
                                         if($start_array[$count]->format('h-i') == $time_print && $start_array[$count]->format('y-m-d') == $day_print){
                     ?>          
                                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                                <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}" checked>
+                                                <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}" checked class ="h-5 w-5 rounded border-gray-300">
                                             </td>
                     <?php
                                             if($count!= count($start_array) -1){
@@ -78,7 +78,7 @@
                                         }else{
                     ?>
                                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                                <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}">
+                                                <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}" class ="h-5 w-5 rounded border-gray-300">
                                             </td>
                     
                     <?php                  
