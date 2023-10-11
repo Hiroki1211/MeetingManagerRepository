@@ -7,6 +7,7 @@
 
         <div class = "menu mt-4 ml-4">
             <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onClick="location.href='./tag/make'">タグ作成</button>
+            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onClick="location.href='./tag/detach'">タグ剥奪</button>
         </div>
         <form method = "GET" action = "?">
             @csrf

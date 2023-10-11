@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        dd("aaa");
+        dd("controller");
         
         Auth::guard('admin')->logout();
     
