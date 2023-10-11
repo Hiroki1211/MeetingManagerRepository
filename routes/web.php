@@ -103,9 +103,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/meeting/{event}/manual', [EventController::class, 'manualAble']);
     Route::post('/meeting/{event}/manual/able', [EventController::class, 'manualSave']);
     Route::post('/meeting/{event}/decide', [EventController::class, 'result']);
+    Route::post('/meeting/member', [UserController::class, 'narrow']);
     Route::post('/meeting/member/tag', [TagController::class, 'make']);
     Route::post('/meeting/member/tag/enchant', [UserController::class, 'saveTag']);
     Route::post('/meeting/member/make', [UserController::class, 'make']);
+    Route::post('/meeting/client/member', [ClientController::class, 'narrow']);
     Route::post('/meeting/client/member/make', [ClientController::class, 'make']);
     Route::post('/meeting/client/member/tag', [TagController::class, 'clientMake']);
     Route::post('/meeting/client/member/tag/enchant', [ClientController::class, 'saveTag']);

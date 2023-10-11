@@ -42,9 +42,11 @@ class ClientController extends Controller
     }
     
     
-    public function member(Client $client){
-        return view('/meeting/client-member')->with(['clients' => $client->where('group_id', '=', Auth::user()->group_id)->get()]);
+    public function member(Client $client, Tag $tag){
+        return view('/meeting/client-member')->with(['clients' => $client->where('group_id', '=', Auth::user()->group_id)->get(), 'tags' => $tag->where('group_id', '=', Auth::user()->group_id)->get()]);
     }
+    
+    
     
     public function make(ClientPostRequest $request, Client $client, User $user){
         $input=$request['client'];
@@ -55,6 +57,20 @@ class ClientController extends Controller
         $client->password = Hash::make($client->password);
         $client->save();
         return redirect('/meeting/client/member');
+    }
+    
+    public function narrow(Request $request, Client $client, Tag $tag){
+        $input = $request['tag'];
+        $group_id = Auth::user()->group_id;
+        
+        if($input == ""){
+            return view('meeting/client-member')->with(['clients' => $client->where('group_id', '=', $group_id)->get(), 'tags' => $tag->where('group_id', '=', $group_id)->get()]);
+        }else{
+            $decidedTag = $tag->where('id', '=', $input)->first();
+            $clients = $decidedTag->clients()->get();
+            return view('meeting/client-member')->with(['clients' => $clients, 'tags' => $tag->where('group_id', '=', $group_id)->get()]); 
+        }
+        
     }
     
     public function pass(ClientIDRequest $request, Client $client){

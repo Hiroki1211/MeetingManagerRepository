@@ -49,7 +49,7 @@
                         @foreach ($users as $user)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                    <input type="checkbox" name="userID[]" value="{{$user->id}}">
+                                    <input type="checkbox" name="userID[]" value="{{$user->id}}" class ="h-5 w-5 rounded border-gray-300">
                                 </td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $user-> name_last}} {{ $user-> name_first}}</td>
                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $user-> name_last_read}} {{ $user-> name_first_read}}</td>

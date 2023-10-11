@@ -13,11 +13,25 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function member(User $user){
+    public function member(User $user, Tag $tag){
 
         $group_id = Auth::user()->group_id;
         
-        return view('meeting/member')->with(['users' => $user->where('group_id', '=', $group_id)->get()]);
+        return view('meeting/member')->with(['users' => $user->where('group_id', '=', $group_id)->get(), 'tags' => $tag->where('group_id', '=', $group_id)->get()]);
+    }
+    
+    public function narrow(Request $request, User $user, Tag $tag){
+        $input = $request['tag'];
+        $group_id = Auth::user()->group_id;
+        
+        if($input == ""){
+            return view('meeting/member')->with(['users' => $user->where('group_id', '=', $group_id)->get(), 'tags' => $tag->where('group_id', '=', $group_id)->get()]);
+        }else{
+            $decidedTag = $tag->where('id', '=', $input)->first();
+            $users = $decidedTag->users()->get();
+            return view('meeting/member')->with(['users' => $users, 'tags' => $tag->where('group_id', '=', $group_id)->get()]); 
+        }
+        
     }
     
     public function tag(User $user){

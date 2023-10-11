@@ -5,9 +5,19 @@
         </h2>
     </x-slot>
     
-        <div class = "menu mt-4 ml-4">
-            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='member/make'">アカウント発行</button>
-            <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./member/tag'">タグ管理</button>
+        <div class = "mt-4 ml-4">
+            <form action="/meeting/client/member" method="POST">
+                @csrf
+                <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='member/make'">アカウント発行</button>
+                <button class="bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="button" onclick="location.href='./member/tag'">タグ管理</button>
+                <select name="tag" >
+                    <option value="" selected>-----</option>
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                    @endforeach
+                </select>                
+                <button type="submit" class="mr-4 bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" onclick="location.href='./member/tag'">絞り込み</button>
+            </form>
         </div>
         <form action="/meeting/client/member/delete" method="GET">
             @csrf

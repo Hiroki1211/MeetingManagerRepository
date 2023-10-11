@@ -67,14 +67,17 @@ class Client extends Authenticatable
         return $this->belongsToMany(Event::class)->withPivot('start', 'register');
     }
     
+    //lastNameが一致する物を取得
     public function getFromNameLast(string $name_last){
         return $this->where('name_last', '=', $name_last)->first();
     }
     
+    //idが一致する物を取得
     public function getFromID(int $id){
         return $this->where('id', '=', $id) -> first();
     }
     
+    //登録されているかどうかを判別するために使う
     public function registeredEvent(){
         return $this -> events() -> where([
                 ['start', '=', NULL],

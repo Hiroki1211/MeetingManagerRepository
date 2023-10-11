@@ -28,7 +28,14 @@
                 <h1>Meeting Manager</h1>
 
                 <div>
-                    <h4 class = "content-center">一般の方はこちら : 
+                    <h4 class= "content-center">一般の方はこちら :
+
+                        <a href="{{ url('client/login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+                        <a href="{{ url('client/register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                     
+                    </h4>                
+                
+                    <h4 class = "content-center">先生の方はこちら : 
                         @if (Route::has('login'))
                             
                                 @auth
@@ -43,12 +50,7 @@
                             
                         @endif
                     </h4>
-                    <h4 class= "content-center">教員の方はこちら :
 
-                        <a href="{{ url('client/login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-                        <a href="{{ url('client/register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                     
-                    </h4>
                     <h4 class= "content-center">全体の方はこちら :
 
                         <a href="{{ url('admin/login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
