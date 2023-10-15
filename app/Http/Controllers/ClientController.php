@@ -99,8 +99,19 @@ class ClientController extends Controller
         $input_client = $request['clientID'];
         $clients = $client->whereIn('id', $input_client)->get();
         foreach($clients as $client){
-            
-            $client->tags()->attach($input_tag);
+            $temps = $client->tags()->get();
+            foreach($input_tag as $value){
+                $check = 0;
+                foreach($temps as $temp){
+                    if($value == $temp->id){
+                        $check = 1;
+                    }
+                }
+                
+                if($check != 1){
+                    $client->tags()->attach($value);
+                }
+            }
         }
         return redirect('/meeting/client/member/tag');
     }
