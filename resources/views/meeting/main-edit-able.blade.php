@@ -19,6 +19,8 @@
         <input type="hidden" name="event[locate]" value ="{{$event->locate}}">
         <input type="hidden" name="event[comment]" value ="{{$event->comment}}">
         
+        <input type="hidden" name="tagID" value = "">
+        
         <input type="hidden" name="authID" value="{{ Auth::user()->id }}">
         
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 ml-4 mr-4">

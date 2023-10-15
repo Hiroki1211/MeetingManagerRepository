@@ -18,6 +18,8 @@
         <input type="hidden" name="event[locate]" value ="{{$event['locate']}}">
         <input type="hidden" name="event[comment]" value ="{{$event['comment']}}">
         
+        <input type="hidden" name="tagID" value="">
+        
         <input type="hidden" name="authID" value="{{ $authID }}">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 ml-4 mr-4">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
