@@ -48,15 +48,16 @@
                                 $timeCount = 0;
                                 while($time_end>=$time_start){
                                     $timeCount += 1;
-                                    $time_print = $time_start->format('h-i');
+                                    $time_tmp = $time_start->format('h-i');
+                                    $time_print = $time_start->format('h:i:s');
                         ?>
                                     <tr>
-                                        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{$time_print}}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{$time_tmp}}</td>
                         <?php
                                         $day=new DateTime($event['day_start']);
                                         for($i = 0; $i < $cols; $i++){
-                                            $day_print = $day->format('y-m-d');
-                                            if($start_array[$count]->format('h-i') == $time_print && $start_array[$count]->format('y-m-d') == $day_print){
+                                            $day_print = $day->format('Y-m-d');
+                                            if($start_array[$count]->format('h:i:s') == $time_print && $start_array[$count]->format('Y-m-d') == $day_print){
                         ?>          
                                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                                     
@@ -68,7 +69,7 @@
                                             }else{
                         ?>
                                                 <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                                    <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}">
+                                                    <input type="checkbox" name="start[]" value="{{$day_print. " " .$time_print}}">
                                                 </td>
                         
                         <?php                  
