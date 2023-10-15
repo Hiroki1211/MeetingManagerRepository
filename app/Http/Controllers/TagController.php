@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\Client;
 use App\Http\Requests\TagIDRequest;
 use App\Http\Requests\TagPostRequest;
 
@@ -53,6 +54,8 @@ class TagController extends Controller
         $input = $request['tagID'];
         $tags = $tag->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
         foreach ($tags as $tag){
+            $tag->users()->detach();
+            $tag->clients()->detach();
             $tag->delete();
         }
         return redirect('/meeting/member/tag');
@@ -66,6 +69,8 @@ class TagController extends Controller
         $input = $request['tagID'];
         $tags = $tag->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
         foreach ($tags as $tag){
+            $tag->users()->detach();
+            $tag->clients()->detach();
             $tag->delete();
         }
         return redirect('/meeting/client/member/tag');
