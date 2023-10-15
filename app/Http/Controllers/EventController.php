@@ -40,6 +40,8 @@ class EventController extends Controller
         $events = $event->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
         
         foreach ($events as $event){
+            $event->users()->detach();
+            $event->clients()->detach();
             $event->delete();
         }
         
