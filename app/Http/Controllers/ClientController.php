@@ -35,6 +35,7 @@ class ClientController extends Controller
         foreach($temps2 as $value){
             if($value->pivot->register != null){
                 $registered = $value->pivot->start;
+                break;
             }
         }
         
