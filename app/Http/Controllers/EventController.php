@@ -10,6 +10,7 @@ use App\Models\Client;
 use App\Http\Requests\ClientIDRequest;
 use App\Http\Requests\EventPostRequest;
 use App\Http\Requests\EventIDRequest;
+use DateTime;
 
 class EventController extends Controller
 {
@@ -146,10 +147,29 @@ class EventController extends Controller
     public function manualSave(Request $request, Event $event){
         $input_clientID = $request['clientID'];
         $input_start = $request['start'];
+        $temps = $event->clients()->where([
+            ['id', '=', $input_clientID],
+            ['start', '<>', NULL],
+            ['register', '=', NULL]
+            ])->get();
+        
         
         array_multisort( array_map( "strtotime", $input_start ), SORT_ASC, $input_start );
         foreach ($input_start as $value){
-            $event->clients()->attach($input_clientID, ['start' => $value, 'register' => null]);
+            $check = 0;
+            foreach($temps as $temp){
+                $registered = new DateTime($temp->pivot->start);
+                $post = new DateTime($value);
+
+                
+                if($value == $temp->pivot->start){
+                    $check = 1;
+                }
+            }
+            
+            if($check == 0){
+                $event->clients()->attach($input_clientID, ['start' => $value, 'register' => null]);
+            }
         }
         
         return redirect('/meeting');
