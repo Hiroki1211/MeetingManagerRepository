@@ -12,6 +12,7 @@ use App\Http\Requests\ClientIDRequest;
 use App\Http\Requests\ClientPostRequest;
 use App\Http\Requests\TagIDRequest;
 use Illuminate\Support\Facades\Hash;
+use DateTime;
 
 class ClientController extends Controller
 {
@@ -130,10 +131,30 @@ class ClientController extends Controller
     public function saveEdit(Request $request, Event $event){
         $authID = Auth::guard('client')->user()->id;
         $input_start = $request['start'];
+        $temps = $event->clients()->where([
+            ['id', '=', $authID],
+            ['start', '<>', NULL],
+            ['register', '=', NULL]
+            ])->get();        
+        
         
         array_multisort( array_map( "strtotime", $input_start ), SORT_ASC, $input_start );
+        
         foreach ($input_start as $value){
-            $event->clients()->attach($authID, ['start' => $value, 'register' => null]);
+            $check = 0;
+            foreach($temps as $temp){
+                $registered = new DateTime($temp->pivot->start);
+                $post = new DateTime($value);
+
+                
+                if($value == $temp->pivot->start){
+                    $check = 1;
+                }
+            }
+            
+            if($check == 0){
+                $event->clients()->attach($authID, ['start' => $value, 'register' => null]);
+            }
         }
         
         return redirect('/client/dashboard');
