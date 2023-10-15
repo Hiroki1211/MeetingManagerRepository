@@ -45,7 +45,10 @@ class UserController extends Controller
     public function enchant(TagIDRequest $request, User $user, Tag $tag){
         $input=$request['tagID'];
         $tags = $tag->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
-        return view('meeting/member-tag-enchant')->with(['users' => $user->where('group_id', '=', Auth::user()->group_id)->get(), 'tags' => $tags]);
+        
+        $users = $user->where('group_id', '=', Auth::user()->group_id)->get();
+        
+        return view('meeting/member-tag-enchant')->with(['users' => $users, 'tags' => $tags]);
     }
     
     public function make(MemberPostRequest $request, User $user){
@@ -78,8 +81,19 @@ class UserController extends Controller
         $input_user = $request['userID'];
         $users = $user->whereIn('id', $input_user)->where('group_id', '=', Auth::user()->group_id)->get();
         foreach($users as $user){
-            
-            $user->tags()->attach($input_tag);
+            $temps = $user->tags()->get();
+            foreach($input_tag as $value){
+                $check = 0;
+                foreach($temps as $temp){
+                    if($value == $temp->id){
+                        $check = 1;
+                    }
+                }
+                
+                if($check != 1){
+                    $user->tags()->attach($value);
+                }
+            }
         }
         return redirect('/meeting/member/tag');
     }
