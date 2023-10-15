@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Tag;
 use App\Http\Requests\ClientIDRequest;
 use App\Http\Requests\EventPostRequest;
 use App\Http\Requests\EventIDRequest;
@@ -49,12 +50,20 @@ class EventController extends Controller
         return redirect('/meeting');
     }
     
-    public function member(Request $request, Event $event, Client $client){
+    public function member(Request $request, Event $event, Client $client, Tag $tag){
         $input_start = $request['start'];
         $input_authID = $request['authID'];
         $input_event = $request['event'];
+        $input_tagID = $request['tagID'];
         
-        return view('/meeting/main-make-able-member')->with(['start' => $input_start, 'authID' => $input_authID, 'event'=>$input_event, 'clients' => $client->where('group_id', '=', Auth::user()->group_id)->get()]);
+        if($input_tagID == ""){
+            $clients = $client->where('group_id', '=', Auth::user()->group_id)->get();
+        }else{
+            $tmp = $tag->where('id', '=', $input_tagID)->first();
+            $clients = $tmp->clients()->get();
+        }
+        
+        return view('/meeting/main-make-able-member')->with(['start' => $input_start, 'authID' => $input_authID, 'event'=>$input_event, 'clients' => $clients, 'tags' => $tag->get()]);
     }
     
     public function saveEvent(Request $request, Event $event , User $user, Client $client){
@@ -89,15 +98,22 @@ class EventController extends Controller
         return view('/meeting/main-edit-able')->with(['event'=>$event, 'authID' => $authID, 'registered'=> $registered]);
     }
     
-    public function updateMember(Request $request, Event $event, Client $client){
+    public function updateMember(Request $request, Event $event, Client $client, Tag $tag){
         $input_start = $request['start'];
         $input_event = $request['event'];
         $event -> fill($input_event);
         $authID = $request['authID'];
+        $input_tag = $request['tagID'];
+        if($input_tag == ""){
+            $clients = $client->where('group_id', '=', Auth::user()->group_id)->get();
+        }else{
+            $tmp = $tag->where('id', '=', $input_tag)->first();
+            $clients = $tmp->clients()->get();
+        }
         
         $registeredUser = $event->clients()->where('register', '<>', null)->where('group_id', '=', Auth::user()->group_id)->get();
 
-        return view('/meeting/main-edit-able-member')->with(['start' => $input_start, 'authID' => $authID, 'event'=>$event, 'clients' => $client->where('group_id', '=', Auth::user()->group_id)->get(), 'registered' => $registeredUser]);  
+        return view('/meeting/main-edit-able-member')->with(['start' => $input_start, 'authID' => $authID, 'event'=>$event, 'clients' => $clients, 'registered' => $registeredUser, 'tags' => $tag->get()]);  
     }
     
     public function update(Request $request, Event $event , User $user, Client $client){
@@ -108,9 +124,10 @@ class EventController extends Controller
 
         $event->fill($input_event);
         $event->update();
+        $event->users()->detach($input_authID);
   
         foreach ($input_start as $value){
-            $event->users()->syncWithoutDetaching($input_authID, ['start' => $value, 'register' => null]);
+            $event->users()->attach($input_authID, ['start' => $value, 'register' => null]);
         }
         $event->clients()->syncWithoutDetaching($input_clientID, ['start' => null, 'register' => $input_authID]);
         $event->clients()->updateExistingPivot($input_clientID, ['register' => $input_authID]);

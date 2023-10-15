@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <form action="/meeting/make/able/member" method="POST">
+    <form action="?" method="POST">
         @csrf
         <input type="hidden" name="authID" value = "{{$authID}}">
         <input type="hidden" name="event[title]" value ="{{$event['title']}}">
@@ -20,6 +20,16 @@
         @foreach ($start as $value)
             <input type="hidden" name="start[]" value="{{$value}}">
         @endforeach
+        
+            <div class="ml-4 mt-4">
+                <select name="tagID" >
+                    <option value="" selected>-----</option>
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                    @endforeach
+                </select>                
+                <button type="submit" class="mr-4 bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" formaction = "/meeting/make/able">絞り込み</button>                  
+            </div>
         
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 ml-4 mr-4">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -73,7 +83,7 @@
                 </table>
             </div>
 
-        <button class="mt-4 ml-4 bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit">作成</button>
+        <button class="mt-4 ml-4 bg-green-700 hover:bg-green-600 text-white rounded px-4 py-2" type="submit" formaction = "/meeting/make/able/member">作成</button>
     </form>
 
 
