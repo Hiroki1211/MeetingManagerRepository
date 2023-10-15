@@ -83,6 +83,8 @@ class ClientController extends Controller
         $input = $request['clientID'];
         $clients = $client->whereIn('id', $input)->get();
         foreach($clients as $client){
+            $client->tags()->detach();
+            $client->events()->detach();
             $client->delete();
         }
         return redirect('/meeting/client/member');

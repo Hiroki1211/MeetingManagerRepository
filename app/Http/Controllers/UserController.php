@@ -71,6 +71,8 @@ class UserController extends Controller
         $input = $request['userID'];
         $users = $user->whereIn('id', $input)->where('group_id', '=', Auth::user()->group_id)->get();
         foreach($users as $user){
+            $user->tags()->detach();
+            $user->events()->detach();
             $user->delete();
         }
         return redirect('/meeting/member');
