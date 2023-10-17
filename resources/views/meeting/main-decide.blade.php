@@ -26,6 +26,7 @@
                         while( $day_end > $day_start){
                             $cols = $cols + 1;
                             $day_print = $day_start->format('m-d');
+                            $day_tmp = $day_start->format('Y-m-d');
         ?>
                             <th class=" text-left py-3 px-4 uppercase font-semibold text-sm">{{$day_print}}</th>
         <?php
@@ -44,7 +45,8 @@
                                 
                     while($time_end>=$time_start){
                         $timeCount += 1;
-                        $time_print = $time_start->format('h-i');        
+                        $time_print = $time_start->format('h-i');  
+                        $time_tmp = $time_start->format('h:i:s');
         ?>
                         <tr>
                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{$time_print}}</td>
@@ -54,6 +56,7 @@
                             $day_end->add(new DateInterval('P1D'));    
                             while($day_end > $day_start){
                                 $day_print = $day_start->format('y-m-d');
+                                $day_tmp = $day_start->format('Y-m-d');
                                 if($start_array[$count]->format('h-i') == $time_print && $start_array[$count]->format('y-m-d') == $day_print){
         ?>          
                                     <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"></td>
@@ -83,7 +86,7 @@
         <?php                           
                                                 for($i = 0; $i < count($name_last); $i++){
         ?>
-                                                    <option value = "{{$day_print}} {{$time_print}} {{$name_last[$i]}} {{$name_first[$i]}}">{{$name_last[$i]}} {{$name_first[$i]}}</option>
+                                                    <option value = "{{$day_tmp}} {{$time_tmp}} {{$name_last[$i]}} {{$name_first[$i]}}">{{$name_last[$i]}} {{$name_first[$i]}}</option>
         <?php
                                                             
                                                 }

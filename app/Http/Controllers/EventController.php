@@ -204,7 +204,7 @@ class EventController extends Controller
             }else{
                 $client = $client->getFromNameLast($pieces[2]);
                 
-                $start = $pieces[0]. "-" .$pieces[1];
+                $start = $pieces[0]. " " .$pieces[1];
                 
                 $event->clients()->attach($client->id, ['start' => $start, 'register' => $authID]);
             }
