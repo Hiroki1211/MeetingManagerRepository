@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProfileController as ProfileOfClientController;
-use App\Http\Controllers\ProfileController as ProfileOfAdminController;
+use App\Http\Controllers\Client\ProfileController as ProfileOfClientController;
+use App\Http\Controllers\Admin\ProfileController as ProfileOfAdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\EventController;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +16,6 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        dd("xx");
         return view('/client/profile.edit', [
             'user' => $request->user(),
         ]);
