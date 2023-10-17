@@ -60,6 +60,7 @@
                         $count = 0;
                         while($count < count($start_array)-1){
                             while($time_end>=$time_start){
+                                $time_tmp = $time_start->format('h:i:s');
                                 $time_print = $time_start->format('h-i');
                     ?>
                                 <tr>
@@ -67,11 +68,11 @@
                     <?php
                                     $day=new DateTime($event['day_start']);
                                     for($i = 0; $i < $cols; $i++){
-                                        $day_print = $day->format('y-m-d');
-                                        if($start_array[$count]->format('h-i') == $time_print && $start_array[$count]->format('y-m-d') == $day_print){
+                                        $day_print = $day->format('Y-m-d');
+                                        if($start_array[$count]->format('h-i') == $time_print && $start_array[$count]->format('Y-m-d') == $day_print){
                     ?>          
                                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                                <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}" checked class ="h-5 w-5 rounded border-gray-300">
+                                                <input type="checkbox" name="start[]" value="{{$day_print. " " .$time_tmp}}" checked class ="h-5 w-5 rounded border-gray-300">
                                             </td>
                     <?php
                                             if($count!= count($start_array) -1){
@@ -80,7 +81,7 @@
                                         }else{
                     ?>
                                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                                <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}" class ="h-5 w-5 rounded border-gray-300">
+                                                <input type="checkbox" name="start[]" value="{{$day_print. " " .$time_tmp}}" class ="h-5 w-5 rounded border-gray-300">
                                             </td>
                     
                     <?php                  
