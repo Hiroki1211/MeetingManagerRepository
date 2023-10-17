@@ -33,6 +33,7 @@
                                 $day_end->add(new DateInterval('P1D'));
                                 while( $day_end > $day_start){
                                     $cols = $cols + 1;
+                                    $day_tmp = $day_start->format('Y-m-d');
                                     $day_print = $day_start->format('m-d');
                             ?>
                                     <th class=" text-left py-3 px-4 uppercase font-semibold text-sm">{{$day_print}}</th>
@@ -49,16 +50,17 @@
                             $frame = strval($event['frame']);
                             while($time_end>=$time_start){
                                 $time_print = $time_start->format('h-i');
+                                $time_tmp = $time_start->format('h:i:s');
                         ?>
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{$time_print}}</td>
                         <?php
                                     $day=new DateTime($event['day_start']);
                                     for($i = 0; $i < $cols; $i++){
-                                        $day_print = $day->format('y-m-d')
+                                        $day_print = $day->format('Y-m-d')
                         ?>
                                         <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                            <input type="checkbox" name="start[]" value="{{$day_print. "-" .$time_print}}" class ="h-5 w-5 rounded border-gray-300">
+                                            <input type="checkbox" name="start[]" value="{{$day_print. " " .$time_tmp}}" class ="h-5 w-5 rounded border-gray-300">
                                         </td>
                         <?php
                                         $day->add(new DateInterval('P1D'));
